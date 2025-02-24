@@ -1,3 +1,6 @@
+All credit goes to https://adminmart.com/product/modernize-next-js-admin-dashboard/
+This is just for educational purpose only and does not intent to sell the code
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
