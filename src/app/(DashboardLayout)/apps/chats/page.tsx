@@ -7,7 +7,7 @@ import PageContainer from "@/app/components/container/PageContainer";
 const Chats = () => {
   return (
     <PageContainer title="Chat" description="this is Chat">
-      <AppCard>
+      <AppCard  maxHeight= "88vh">
         <ChatsApp />
       </AppCard>
     </PageContainer>

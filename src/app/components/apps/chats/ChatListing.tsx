@@ -74,32 +74,7 @@ const ChatListing = () => {
 
   return (
     <div>
-      {/* ------------------------------------------- */}
-      {/* Profile */}
-      {/* ------------------------------------------- */}
-      <Box display={"flex"} alignItems="center" gap="10px" p={3}>
-        <Badge
-          variant="dot"
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          overlap="circular"
-          color="success"
-        >
-          <Avatar
-            alt="Remy Sharp"
-            src="/images/profile/user-1.jpg"
-            sx={{ width: 54, height: 54 }}
-          />
-        </Badge>
-        <Box>
-          <Typography variant="body1" fontWeight={600}>
-          Mathew Anderson
-          </Typography>
-          <Typography variant="body2">Designer</Typography>
-        </Box>
-      </Box>
+      <Box py={1}></Box>
       {/* ------------------------------------------- */}
       {/* Search */}
       {/* ------------------------------------------- */}

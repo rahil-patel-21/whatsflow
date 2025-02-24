@@ -25,9 +25,22 @@ const ChatsApp = () => {
       {/* Right part */}
       {/* ------------------------------------------- */}
 
-      <Box flexGrow={1} sx={{ maxHeight: '88vh' }}>
-        <ChatContent toggleChatSidebar={() => setMobileSidebarOpen(true)} />
+      <Box
+        flexGrow={1}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          maxHeight: "88vh", // Keep the maximum height of the entire section
+        }}
+      >
+        {/* Chat content section */}
+        <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+          <ChatContent toggleChatSidebar={() => setMobileSidebarOpen(true)} />
+        </Box>
+
         <Divider />
+
+        {/* Message sending section */}
         <ChatMsgSent />
       </Box>
     </>
