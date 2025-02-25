@@ -9,6 +9,7 @@ import Customizer from "./layout/shared/customizer/Customizer";
 import HorizontalHeader from "./layout/horizontal/header/Header";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
+import { APP_NAME } from "@/constants/strings";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -38,7 +39,7 @@ export default function RootLayout({
 
   return (
     <MainWrapper className={customizer.activeMode === 'dark' ? 'darkbg mainwrapper' : 'mainwrapper'}>
-      <title>Modernize NextJs</title>
+      <title>{APP_NAME}</title>
       {/* ------------------------------------------- */}
       {/* Sidebar */}
       {/* ------------------------------------------- */}
