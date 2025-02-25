@@ -81,9 +81,6 @@ const ConnectAccount = () => {
                 maxLength={10}
                 type="numeric"
               />  
-              <Typography color="textSecondary">
-                Required for sending request to whatsApp.
-              </Typography>
 
               <Stack direction="row" spacing={2} mt={4} mb={4}>
                 <Avatar
