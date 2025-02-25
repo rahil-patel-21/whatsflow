@@ -11,7 +11,6 @@ import { useSelector, useDispatch } from '@/store/hooks';
 import { toggleMobileSidebar } from '@/store/customizer/CustomizerSlice';
 import { IconMenu2 } from '@tabler/icons-react';
 import Notifications from '../../vertical/header/Notification';
-import Cart from '../../vertical/header/Cart';
 import Profile from '../../vertical/header/Profile';
 import Search from '../../vertical/header/Search';
 import Navigation from '../../vertical/header/Navigation';
@@ -73,7 +72,6 @@ const Header = () => {
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
 
-          <Cart />
           <Notifications />
           <Profile />
         </Stack>

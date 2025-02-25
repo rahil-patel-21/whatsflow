@@ -3,13 +3,21 @@
 // Imports
 import Box from "@mui/material/Box";
 import React, { useState } from "react";
+import { AppState } from "@/store/store";
 import Divider from "@mui/material/Divider";
+import { useSelector } from "@/store/hooks";
+import ConnectAccount from "./connect-account/ConnectAccount";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
 import ChatMsgSent from "@/app/components/apps/chats/ChatMsgSent";
 
 const ChatsApp = () => {
+  const chatState = useSelector((state: AppState) => state.reducerChat);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+
+ 
+
+  console.log({chatState})
 
   return (
     <>

@@ -1,18 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
+// Imports
 import { combineReducers } from "redux";
-import { persistReducer, persistStore } from "redux-persist";
+import BlogReducer from "./apps/blog/BlogSlice";
 import storage from "redux-persist/lib/storage";
-
-import counterReducer from "./counter/counterSlice";
-import CustomizerReducer from "./customizer/CustomizerSlice";
-import EcommerceReducer from "./apps/eCommerce/ECommerceSlice";
 import ChatsReducer from "./apps/chat/ChatSlice";
+import ReducerChat from "./apps/chat/ChatReducer";
+import { configureStore } from "@reduxjs/toolkit";
 import NotesReducer from "./apps/notes/NotesSlice";
 import EmailReducer from "./apps/email/EmailSlice";
+import counterReducer from "./counter/counterSlice";
 import TicketReducer from "./apps/tickets/TicketSlice";
 import ContactsReducer from "./apps/contacts/ContactSlice";
+import { persistReducer, persistStore } from "redux-persist";
+import CustomizerReducer from "./customizer/CustomizerSlice";
+import EcommerceReducer from "./apps/eCommerce/ECommerceSlice";
 import UserProfileReducer from "./apps/userProfile/UserProfileSlice";
-import BlogReducer from "./apps/blog/BlogSlice";
 
 const persistConfig = {
   key: "root",
@@ -21,6 +22,7 @@ const persistConfig = {
 
 export const store = configureStore({
   reducer: {
+    reducerChat: ReducerChat,
     counter: counterReducer,
     customizer: persistReducer<any>(persistConfig, CustomizerReducer),
     ecommerceReducer: EcommerceReducer,
@@ -38,6 +40,7 @@ export const store = configureStore({
 });
 
 const rootReducer = combineReducers({
+  reducerChat: ReducerChat,
   counter: counterReducer,
   customizer: CustomizerReducer,
   ecommerceReducer: EcommerceReducer,
