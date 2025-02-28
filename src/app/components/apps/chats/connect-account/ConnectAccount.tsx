@@ -125,107 +125,137 @@ const ConnectAccount = () => {
                 </Box>
               </Stack>
 
-             {!chatState.isConnectionReqSent && <Stack
-                direction="row"
-                spacing={2}
-                sx={{ justifyContent: "center" }}
-              >
-                <Button
-                  size="large"
-                  variant="contained"
-                  color="primary"
-                  disabled={chatState.accConnectNumber.length != 10}
-                  onClick={() => {
-                    dispatch(setIsConnectionReqSent(true));
-                  }}
+              {!chatState.isConnectionReqSent && (
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ justifyContent: "center" }}
                 >
-                  Send connection request
-                </Button>
-              </Stack>}
+                  <Button
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    disabled={chatState.accConnectNumber.length != 10}
+                    onClick={() => {
+                      dispatch(setIsConnectionReqSent(true));
+                    }}
+                  >
+                    Send connection request
+                  </Button>
+                </Stack>
+              )}
 
-             {chatState.isConnectionReqSent &&  <Box sx={{ maxWidth: { xs: 320, sm: 480 } }}>
-                <Tabs
-                  value={value}
-                  onChange={handleChange}
-                  scrollButtons="auto"
-                  aria-label="basic tabs example"
-                >
-                  <Tab
-                    iconPosition="start"
-                    icon={<IconQrcode size="22" />}
-                    label="QR Code"
-                    {...a11yProps(0)}
-                  />
+              {chatState.isConnectionReqSent && (
+                <Box sx={{ maxWidth: { xs: 320, sm: 480 } }}>
+                  <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    scrollButtons="auto"
+                    aria-label="basic tabs example"
+                  >
+                    <Tab
+                      iconPosition="start"
+                      icon={<IconQrcode size="22" />}
+                      label="QR Code"
+                      {...a11yProps(0)}
+                    />
 
-                  <Tab
-                    iconPosition="start"
-                    icon={<IconCode size="22" />}
-                    label="Enter Code"
-                    {...a11yProps(1)}
-                  />
-                </Tabs>
-              </Box> }
-
-            { chatState.isConnectionReqSent &&  <TabPanel value={value} index={0}>
-                <Box display="flex" alignItems="center">
-                  {/* Left Side - Instructions */}
-                  <Box pr={3}>
-                    {" "}
-                    {/* Add padding to space out from the QR code */}
-                    <Typography color="textSecondary" pb={1}>
-                      1 - Open WhatsApp on mobile
-                    </Typography>
-                    <Typography color="textSecondary" pb={1}>
-                      2 - Go to WhatsApp settings
-                    </Typography>
-                    <Typography color="textSecondary" pb={1}>
-                      3 - Select Linked devices
-                    </Typography>
-                    <Typography color="textSecondary" pb={1}>
-                      4 - Select Link with phone number
-                    </Typography>
-                    <Typography color="textSecondary">
-                      5 - Scan this QR code from WhatsApp
-                    </Typography>
-                  </Box>
-
-                  {/* Right Side - QR Code */}
-                  <Box>
-                    <QRCode data="https://github.com" width={200} />
-                  </Box>
+                    <Tab
+                      iconPosition="start"
+                      icon={<IconCode size="22" />}
+                      label="Enter Code"
+                      {...a11yProps(1)}
+                    />
+                  </Tabs>
                 </Box>
-              </TabPanel> }
-           { chatState.isConnectionReqSent &&  <TabPanel value={value} index={1}>
-                <Box p={1}></Box>
-                <Typography color="textSecondary" pb={1}>
-                  1 - Open whatsApp on mobile
-                </Typography>
-                <Typography color="textSecondary" pb={1}>
-                  2 - Go to whatsApp settings
-                </Typography>
-                <Typography color="textSecondary" pb={1}>
-                  3 - Select Linked devices
-                </Typography>
-                <Typography color="textSecondary" pb={1}>
-                  4 - Select Link with phone number
-                </Typography>
-                <Typography color="textSecondary">
-                  5 - Enter code in below textfield
-                </Typography>
+              )}
 
-                <CustomFormLabel htmlFor="text-whatsapp-number">
-                  Your 8 Digit whatsApp code
-                </CustomFormLabel>
-                <CustomTextField
-                  size="small"
-                  id="text-whatsapp-number"
-                  variant="outlined"
-                  fullWidth
-                  placeholder="Enter your 8 digit code"
-                  maxLength={10}
-                  type="numeric"
-                />
-              </TabPanel> }
+              {chatState.isConnectionReqSent && (
+                <TabPanel value={value} index={0}>
+                  <Box display="flex" alignItems="center">
+                    {/* Left Side - Instructions */}
+                    <Box pr={3}>
+                      {" "}
+                      {/* Add padding to space out from the QR code */}
+                      <Typography color="textSecondary" pb={1}>
+                        1 - Open WhatsApp on mobile
+                      </Typography>
+                      <Typography color="textSecondary" pb={1}>
+                        2 - Go to WhatsApp settings
+                      </Typography>
+                      <Typography color="textSecondary" pb={1}>
+                        3 - Select Linked devices
+                      </Typography>
+                      <Typography color="textSecondary" pb={1}>
+                        4 - Select Link with phone number
+                      </Typography>
+                      <Typography color="textSecondary">
+                        5 - Scan this QR code from WhatsApp
+                      </Typography>
+                    </Box>
+
+                    {/* Right Side - QR Code */}
+                    <Box>
+                      <QRCode data="https://github.com" width={200} />
+                    </Box>
+                  </Box>
+                </TabPanel>
+              )}
+              {chatState.isConnectionReqSent && (
+                <TabPanel value={value} index={1}>
+                  <Box p={1}></Box>
+                  <Typography color="textSecondary" pb={1}>
+                    1 - Open whatsApp on mobile
+                  </Typography>
+                  <Typography color="textSecondary" pb={1}>
+                    2 - Go to whatsApp settings
+                  </Typography>
+                  <Typography color="textSecondary" pb={1}>
+                    3 - Select Linked devices
+                  </Typography>
+                  <Typography color="textSecondary" pb={1}>
+                    4 - Select Link with phone number
+                  </Typography>
+                  <Typography color="textSecondary">
+                    5 - Enter code in below textfield
+                  </Typography>
+
+                  <CustomFormLabel htmlFor="text-whatsapp-connect-code">
+                    Your 8 Digit whatsApp code
+                  </CustomFormLabel>
+                  <CustomTextField
+                    size="small"
+                    id="text-whatsapp-connect-code"
+                    variant="outlined"
+                    fullWidth
+                    placeholder="Enter your 8 digit code"
+                    maxLength={8}
+                    type="text"
+                  />
+                  <Box  display='flex' p={1} mt={1}>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => dispatch(setIsConnectionReqSent(false))}
+                  >
+                    Cancel
+                  </Button>
+                  <Box px={1}></Box>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    color="primary"
+                    disabled={chatState.accConnectNumber.length != 10}
+                    onClick={() => {
+                      dispatch(setAccConnected(true));
+                    }}
+                  >
+                    Connect account
+                  </Button>
+                  </Box>
+                  
+                </TabPanel>
+              )}
             </CardContent>
           </BlankCard>
         </Grid>
