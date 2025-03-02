@@ -1,18 +1,13 @@
-'use client'
+"use client";
 
 // Imports
-import {
-  Box,
-  Typography,
-  Button,
-  Stack,
-  Divider,
-} from "@mui/material";
+import { Box, Typography, Button, Stack, Divider } from "@mui/material";
 import Link from "next/link";
 import AuthSocialButtons from "./AuthSocialButtons";
 import { loginType } from "@/app/(DashboardLayout)/types/auth/auth";
 import CustomTextField from "@/app/components/forms/theme-elements/CustomTextField";
 import CustomFormLabel from "@/app/components/forms/theme-elements/CustomFormLabel";
+import { successLogIn } from "@/app/services/auth";
 
 const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
   <>
@@ -79,9 +74,8 @@ const AuthLogin = ({ title, subtitle, subtext }: loginType) => (
         variant="contained"
         size="large"
         fullWidth
-        component={Link}
-        href="/"
         type="submit"
+        onClick={successLogIn}
       >
         Sign In
       </Button>

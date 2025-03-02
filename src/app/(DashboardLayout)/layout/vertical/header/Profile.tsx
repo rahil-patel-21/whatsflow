@@ -14,6 +14,7 @@ import * as dropdownData from './data';
 import { IconMail } from '@tabler/icons-react';
 import { Stack } from '@mui/system';
 import Image from 'next/image';
+import { logOut } from '@/app/services/auth';
 
 
 const Profile = () => {
@@ -156,7 +157,7 @@ const Profile = () => {
               <Image src={"/images/backgrounds/unlimited-bg.png"} width={150} height={183} style={{ height: 'auto', width: 'auto' }} alt="unlimited" className="signup-bg" />
             </Box>
           </Box>
-          <Button href="/auth/login" variant="outlined" color="primary" component={Link} fullWidth>
+          <Button variant="outlined" color="primary" fullWidth onClick={logOut}>
             Logout
           </Button>
         </Box>
