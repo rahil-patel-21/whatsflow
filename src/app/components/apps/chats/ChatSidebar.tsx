@@ -1,6 +1,7 @@
+// Imports
 import React from 'react';
-import { Drawer, Theme, useMediaQuery } from '@mui/material';
 import ChatListing from './ChatListing';
+import { Drawer, Theme, useMediaQuery } from '@mui/material';
 
 interface chatType {
   isMobileSidebarOpen: boolean;

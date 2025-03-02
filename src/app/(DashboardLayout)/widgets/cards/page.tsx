@@ -4,7 +4,6 @@ import PageContainer from "@/app/components/container/PageContainer";
 
 import PaymentGateways from "@/app/components/dashboards/ecommerce/PaymentGateways";
 import RecentTransactions from "@/app/components/dashboards/ecommerce/RecentTransactions";
-import TopCards from "@/app/components/dashboards/modern/TopCards";
 import UpcomingAcitivity from "@/app/components/widgets/cards/UpcomingActivity";
 import ComplexCard from "@/app/components/widgets/cards/ComplexCard";
 import MusicCard from "@/app/components/widgets/cards/MusicCard";
@@ -32,9 +31,6 @@ const WidgetCards = () => {
       <Breadcrumb title="Cards" items={BCrumb} />
       {/* end breadcrumb */}
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <TopCards />
-        </Grid>
         <Grid item xs={12}>
           <ComplexCard />
         </Grid>

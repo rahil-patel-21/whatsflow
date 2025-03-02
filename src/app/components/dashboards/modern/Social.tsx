@@ -17,7 +17,7 @@ const Social = () => {
           <Box>
             <Typography variant="h5">Super awesome, Vue coming soon!</Typography>
             <Typography variant="subtitle2" color="textSecondary">
-              22 March, 2023
+              22 March, 2025
             </Typography>
           </Box>
         </Stack>
@@ -30,6 +30,7 @@ const Social = () => {
           </AvatarGroup>
           <NextLink href="/">
             <Box
+              mb={2}
               width="40px"
               height="40px"
               bgcolor="primary.light"
