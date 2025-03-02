@@ -1,8 +1,10 @@
 "use client";
+
+// Imports
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { styled, useTheme } from "@mui/material/styles";
-import React, { useState } from "react";
 import Header from "./layout/vertical/header/Header";
 import Sidebar from "./layout/vertical/sidebar/Sidebar";
 import Customizer from "./layout/shared/customizer/Customizer";
@@ -10,6 +12,8 @@ import HorizontalHeader from "./layout/horizontal/header/Header";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import { APP_NAME } from "@/constants/strings";
+import { useRouter } from "next/router";
+import { handleAuth } from "../services/auth";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -32,13 +36,20 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const customizer = useSelector((state: AppState) => state.customizer);
   const theme = useTheme();
 
+  // Redirect to /auth/login if the user visits the root path
+  useEffect(() => {
+    handleAuth()
+  }, []); // Empty dependency array ensures this runs only once on mount
+
   return (
-    <MainWrapper className={customizer.activeMode === 'dark' ? 'darkbg mainwrapper' : 'mainwrapper'}>
+    <MainWrapper
+      className={
+        customizer.activeMode === "dark" ? "darkbg mainwrapper" : "mainwrapper"
+      }
+    >
       <title>{APP_NAME}</title>
       {/* ------------------------------------------- */}
       {/* Sidebar */}
@@ -64,7 +75,7 @@ export default function RootLayout({
         {/* PageContent */}
         <Container
           sx={{
-            pt: '10px',
+            pt: "10px",
             maxWidth: customizer.isLayout === "boxed" ? "lg" : "100%!important",
           }}
         >
