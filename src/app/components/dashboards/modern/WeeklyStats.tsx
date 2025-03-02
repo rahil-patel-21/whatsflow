@@ -115,12 +115,12 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
                 {stats.map((stat, i) => (
                   <Stack
                     direction="row"
-                    spacing={2}
+                    spacing={1}
                     justifyContent="space-between"
                     alignItems="center"
                     key={i}
                   >
-                    <Stack direction="row" alignItems="center" spacing={2}>
+                    <Stack direction="row" alignItems="center" spacing={1}>
                       <Avatar
                         variant="rounded"
                         sx={{ bgcolor: stat.lightcolor, color: stat.color, width: 40, height: 40 }}
@@ -128,7 +128,7 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
                         {stat.icon}
                       </Avatar>
                       <Box>
-                        <Typography variant="h6" mb="4px">
+                        <Typography variant="h6" mb="1px">
                           {stat.title}
                         </Typography>
                         <Typography variant="subtitle2" color="textSecondary">

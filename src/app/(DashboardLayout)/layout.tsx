@@ -12,7 +12,6 @@ import HorizontalHeader from "./layout/horizontal/header/Header";
 import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import { APP_NAME } from "@/constants/strings";
-import { useRouter } from "next/router";
 import { handleAuth } from "../services/auth";
 
 const MainWrapper = styled("div")(() => ({
