@@ -7,7 +7,6 @@ import PageContainer from "@/app/components/container/PageContainer";
 // components
 import YearlyBreakup from "@/app/components/dashboards/modern/YearlyBreakup";
 import MonthlyEarnings from "@/app/components/dashboards/modern/MonthlyEarnings";
-import TopCards from "@/app/components/dashboards/modern/TopCards";
 import RevenueUpdates from "@/app/components/dashboards/modern/RevenueUpdates";
 import EmployeeSalary from "@/app/components/dashboards/modern/EmployeeSalary";
 import Customers from "@/app/components/dashboards/modern/Customers";
@@ -28,10 +27,6 @@ export default function Dashboard() {
     <PageContainer title="Dashboard" description="this is Dashboard">
       <Box >
         <Grid container spacing={3}>
-          {/* column */}
-          <Grid item xs={12} lg={12}>
-            <TopCards />
-          </Grid>
           {/* column */}
           <Grid item xs={12} lg={8}>
             <RevenueUpdates isLoading={isLoading} />
