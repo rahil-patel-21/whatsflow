@@ -15,7 +15,7 @@ export const handleAuth = () => {
 
 export const successLogIn = () => {
   localStorage.setItem("isLoggedIn", "true");
-  window.location.href = "/";
+  window.location.replace("/");
 };
 
 export const logOut = () => {
