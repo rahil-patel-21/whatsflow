@@ -23,6 +23,7 @@ import {
   setIsConnectionReqSent,
 } from "@/store/apps/chat/ChatReducer";
 import { AppState } from "@/store/store";
+import { sendWAConnectionRequest } from "@/services/chat/connectWa";
 
 function a11yProps(index: number) {
   return {
@@ -88,8 +89,9 @@ const ConnectAccount = () => {
                 maxLength={10}
                 type="numeric"
                 disabled={chatState.isConnectionReqSent}
-                onChange={(event: any) =>
+                onChange={(event: any) => {
                   dispatch(setAccConnectNumber(event?.target?.value))
+                }
                 }
               />
 
@@ -137,6 +139,7 @@ const ConnectAccount = () => {
                     color="primary"
                     disabled={chatState.accConnectNumber.length != 10}
                     onClick={() => {
+                      sendWAConnectionRequest(chatState.accConnectNumber);
                       dispatch(setIsConnectionReqSent(true));
                     }}
                   >
