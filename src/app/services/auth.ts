@@ -20,5 +20,5 @@ export const successLogIn = () => {
 
 export const logOut = () => {
   localStorage.removeItem("isLoggedIn");
-  window.location.href = "/auth/login";
+  window.location.replace("/auth/login");
 };
