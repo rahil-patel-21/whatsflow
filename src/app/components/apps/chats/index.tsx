@@ -7,10 +7,11 @@ import Divider from "@mui/material/Divider";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
 import ChatMsgSent from "@/app/components/apps/chats/ChatMsgSent";
+import { Skeleton } from "@mui/material";
+import LoadingConnection from "./connect-account/LoadingConnection";
 
 const ChatsApp = () => {
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
 
   return (
     <>
@@ -18,7 +19,7 @@ const ChatsApp = () => {
       {/* Left part */}
       {/* ------------------------------------------- */}
 
-      <ChatSidebar
+      <ChatSidebar 
         isMobileSidebarOpen={isMobileSidebarOpen}
         onSidebarClose={() => setMobileSidebarOpen(false)}
       />

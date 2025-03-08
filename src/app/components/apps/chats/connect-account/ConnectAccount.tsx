@@ -23,7 +23,10 @@ import {
   setIsConnectionReqSent,
 } from "@/store/apps/chat/ChatReducer";
 import { AppState } from "@/store/store";
-import { sendWAConnectionRequest } from "@/services/chat/connectWa";
+import {
+  connectWaForcefully,
+  sendWAConnectionRequest,
+} from "@/services/chat/connectWa";
 
 function a11yProps(index: number) {
   return {
@@ -63,6 +66,12 @@ const ConnectAccount = () => {
     setValue(newValue);
   };
 
+  async function funConnectWaForcefully() {
+  const response =   await connectWaForcefully();
+  console.log({response})
+    dispatch(setAccConnected(true));
+  }
+
   return (
     <>
       <Grid container spacing={3} justifyContent="center">
@@ -90,9 +99,8 @@ const ConnectAccount = () => {
                 type="numeric"
                 disabled={chatState.isConnectionReqSent}
                 onChange={(event: any) => {
-                  dispatch(setAccConnectNumber(event?.target?.value))
-                }
-                }
+                  dispatch(setAccConnectNumber(event?.target?.value));
+                }}
               />
 
               <Stack direction="row" spacing={2} mt={4} mb={4}>
@@ -235,28 +243,25 @@ const ConnectAccount = () => {
                     maxLength={8}
                     type="text"
                   />
-                  <Box  display='flex' p={1} mt={1}>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={() => dispatch(setIsConnectionReqSent(false))}
-                  >
-                    Cancel
-                  </Button>
-                  <Box px={1}></Box>
-                  <Button
-                    size="large"
-                    variant="contained"
-                    color="primary"
-                    disabled={chatState.accConnectNumber.length != 10}
-                    onClick={() => {
-                      dispatch(setAccConnected(true));
-                    }}
-                  >
-                    Connect account
-                  </Button>
+                  <Box display="flex" p={1} mt={1}>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => dispatch(setIsConnectionReqSent(false))}
+                    >
+                      Cancel
+                    </Button>
+                    <Box px={1}></Box>
+                    <Button
+                      size="large"
+                      variant="contained"
+                      color="primary"
+                      disabled={chatState.accConnectNumber.length != 10}
+                      onClick={funConnectWaForcefully}
+                    >
+                      Connect account
+                    </Button>
                   </Box>
-                  
                 </TabPanel>
               )}
             </CardContent>
