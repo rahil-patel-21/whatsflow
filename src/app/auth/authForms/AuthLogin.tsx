@@ -1,5 +1,6 @@
 "use client";
 
+// Imports
 import Link from "next/link";
 import { useState } from "react";
 import AuthSocialButtons from "./AuthSocialButtons";
