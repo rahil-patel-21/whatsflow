@@ -23,6 +23,11 @@ export default function Login() {
           lg={7}
           xl={8}
           sx={{
+            display: {
+              xs: "none", // Hide on extra small screens
+              sm: "none", // Hide on small screens
+              lg: "block", // Show on large screens and above
+            },
             position: "relative",
             "&:before": {
               content: '""',
