@@ -66,12 +66,6 @@ const profile: ProfileType[] = [
     icon: "/images/svgs/icon-account.svg",
   },
   {
-    href: "/apps/email",
-    title: "My Inbox",
-    subtitle: "Messages & Emails",
-    icon: "/images/svgs/icon-inbox.svg",
-  },
-  {
     href: "/apps/notes",
     title: "My Tasks",
     subtitle: "To-do and Daily Tasks",
@@ -142,10 +136,6 @@ const pageLinks: LinkType[] = [
   {
     href: "/theme-pages/pricing",
     title: "Pricing Page",
-  },
-  {
-    href: "/404",
-    title: "404 Error Page",
   },
   {
     href: "/apps/note",

@@ -1,20 +1,18 @@
+// Imports
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from '@/store/hooks';
-import { toggleSidebar, toggleMobileSidebar } from '@/store/customizer/CustomizerSlice';
-import { IconMenu2 } from '@tabler/icons-react';
 import Notifications from './Notification';
 import Profile from './Profile';
-import Cart from './Cart';
 import Search from './Search';
 import { AppState } from '@/store/store';
 import Navigation from './Navigation';
 import MobileRightSidebar from './MobileRightSidebar';
+import Logo from '../../shared/logo/Logo';
 
 const Header = () => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
@@ -41,33 +39,24 @@ const Header = () => {
   return (
     <AppBarStyled position="sticky" color="default">
       <ToolbarStyled>
-        {/* ------------------------------------------- */}
-        {/* Toggle Button Sidebar */}
-        {/* ------------------------------------------- */}
-        <IconButton
-          color="inherit"
-          aria-label="menu"
-          onClick={lgUp ? () => dispatch(toggleSidebar()) : () => dispatch(toggleMobileSidebar())}
-        >
-          <IconMenu2 size="20" />
-        </IconButton>
+
+
+      <Box sx={{ width: lgDown ? '45px' : 'auto', overflow: 'hidden' }}>
+          <Logo />
+        </Box>
 
         {/* ------------------------------------------- */}
         {/* Search Dropdown */}
         {/* ------------------------------------------- */}
-        <Search />
         {lgUp ? (
           <>
             <Navigation />
           </>
         ) : null}
 
+<Search />
         <Box flexGrow={1} />
         <Stack spacing={1} direction="row" alignItems="center">
-          {/* ------------------------------------------- */}
-          {/* Ecommerce Dropdown */}
-          {/* ------------------------------------------- */}
-          <Cart />
           {/* ------------------------------------------- */}
           {/* End Ecommerce Dropdown */}
           {/* ------------------------------------------- */}

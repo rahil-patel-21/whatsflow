@@ -70,12 +70,12 @@ export default function RootLayout({
         {/* ------------------------------------------- */}
         {/* Header */}
         {/* ------------------------------------------- */}
-        {customizer.isHorizontal ? <HorizontalHeader /> : <Header />}
+        {!customizer.isHorizontal ? <HorizontalHeader /> : <Header />}
         {/* PageContent */}
         <Container
           sx={{
             pt: "10px",
-            maxWidth: customizer.isLayout === "boxed" ? "lg" : "100%!important",
+            maxWidth: customizer.isLayout !== "boxed" ? "lg" : "100%!important",
           }}
         >
           {/* ------------------------------------------- */}

@@ -18,7 +18,6 @@ import { IconDotsVertical, IconMenu2 } from "@tabler/icons-react";
 import { useSelector } from "@/store/hooks";
 import { ChatsType } from "../../../(DashboardLayout)/types/apps/chat";
 import { formatDistanceToNowStrict } from "date-fns";
-import ChatInsideSidebar from "./ChatInsideSidebar";
 import Image from "next/image";
 
 interface ChatContentProps {
