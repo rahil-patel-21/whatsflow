@@ -100,7 +100,7 @@ const WeeklyStats = ({ isLoading }: WeeklyCardProps) => {
         isLoading ? (
           <SkeletonWeeklyStatsCard />
         ) : (
-          <DashboardCard title="Weekly Stats" subtitle="Average sales">
+          <DashboardCard title="Weekly Stats" subtitle="Average messages">
             <>
               <Stack mt={4}>
                 <Chart

@@ -43,7 +43,7 @@ const SellingProducts = () => {
           Best selling products
         </Typography>
         <Typography variant="subtitle1" color="white" mb={4}>
-          Overview 2023
+          Overview 2025
         </Typography>
 
         <Box textAlign="center" mt={2} mb="-40px">
