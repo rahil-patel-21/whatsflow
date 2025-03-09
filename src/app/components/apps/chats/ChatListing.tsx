@@ -1,3 +1,4 @@
+// Imports
 import React, { useEffect, useState } from "react";
 import Alert from '@mui/material/Alert'
 import Avatar from '@mui/material/Avatar'
@@ -28,6 +29,7 @@ import { IconChevronDown, IconSearch } from "@tabler/icons-react";
 const ChatListing = () => {
 
   const dispatch = useDispatch();
+  const chatState = useSelector((state) => state.reducerChat);
   const activeChat = useSelector((state) => state.chatReducer.chatContent);
 
   useEffect(() => {
@@ -81,7 +83,7 @@ const ChatListing = () => {
       <Box px={3} py={1}>
         <TextField
           id="outlined-search"
-          placeholder="Search contacts"
+          placeholder="Search for anything..."
           size="small"
           type="search"
           variant="outlined"
@@ -109,7 +111,7 @@ const ChatListing = () => {
             onClick={handleClick}
             color="inherit"
           >
-            Recent Chats <IconChevronDown size="16" />
+            Recent Chats  ({chatState.recentChats.length})<IconChevronDown size="16" />
           </Button>
           <Menu
             id="basic-menu"
@@ -131,29 +133,30 @@ const ChatListing = () => {
             maxHeight: "600px",
           }}
         >
-          {chats && chats.length ? (
-            chats.map((chat) => (
+          {chatState.recentChats && chatState.recentChats.length ? (
+            chatState.recentChats.map((chat) => (
               <ListItemButton
-                key={chat.id}
-                onClick={() => dispatch(SelectChat(chat.id))}
+                key={chat.name}
+                onClick={() => dispatch(SelectChat(chat.name))}
                 sx={{
                   mb: 0.5,
                   py: 2,
                   px: 3,
                   alignItems: "start",
                 }}
-                selected={activeChat === chat.id}
+                selected={false}
               >
                 <ListItemAvatar>
                   <Badge
                     color={
-                      chat.status === "online"
-                        ? "success"
-                        : chat.status === "busy"
-                        ? "error"
-                        : chat.status === "away"
-                        ? "warning"
-                        : "secondary"
+                      // chat.status === "online"
+                      //   ? "success"
+                      //   : chat.status === "busy"
+                      //   ? "error"
+                      //   : chat.status === "away"
+                      //   ? "warning"
+                      //   : 
+                        "secondary"
                     }
                     variant="dot"
                     anchorOrigin={{
@@ -164,7 +167,7 @@ const ChatListing = () => {
                   >
                     <Avatar
                       alt="Remy Sharp"
-                      src={chat.thumb}
+                      src="/images/profile/user-10.jpg"
                       sx={{ width: 42, height: 42 }}
                     />
                   </Badge>
@@ -175,7 +178,7 @@ const ChatListing = () => {
                       {chat.name}
                     </Typography>
                   }
-                  secondary={getDetails(chat)}
+                  secondary={chat.content}
                   secondaryTypographyProps={{
                     noWrap: true,
                   }}
@@ -183,7 +186,7 @@ const ChatListing = () => {
                 />
                 <Box sx={{ flexShrink: "0" }} mt={0.5}>
                   <Typography variant="body2">
-                    {formatDistanceToNowStrict(new Date(lastActivity(chat)), {
+                    {formatDistanceToNowStrict(new Date(chat.timestamp), {
                       addSuffix: false,
                     })}
                   </Typography>
