@@ -2,9 +2,11 @@
 
 // Imports
 import Box from "@mui/material/Box";
+import { db } from "@/lib/firebase";
 import Divider from "@mui/material/Divider";
 import { useDispatch } from "@/store/hooks";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
+import { doc, onSnapshot } from "firebase/firestore";
 import { fetchRecentChats } from "@/services/chat/recentChat";
 import { setRecentChats } from "@/store/apps/chat/ChatReducer";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
@@ -17,6 +19,7 @@ const ChatsApp = () => {
 
     useEffect(() => {
       recentChats();
+      setupRealTimeListener();
     }, []);
 
   async function recentChats() {
@@ -25,6 +28,19 @@ const ChatsApp = () => {
       dispatch(setRecentChats(recent_chats))
     }
   }
+
+    // Set up a real-time listener for a specific document
+    const setupRealTimeListener = () => {
+      const docRef = doc(db, "Recent-Chats", "Default"); // Replace with your collection and document ID
+  
+      const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          recentChats();
+        } 
+      });
+  
+      return () => unsubscribe();  // Clean up the listener when the component unmounts
+    };
 
   return (
     <>
