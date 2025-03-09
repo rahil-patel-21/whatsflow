@@ -1,11 +1,18 @@
 // Imports
 import { createSlice } from "@reduxjs/toolkit";
 
+interface RecentChat {
+  content: string,
+  name: string,
+  timestamp: number
+}
+
 interface StateType {
   isAccConnected?: boolean;
   accConnectNumber: string; // 10 digit whatsApp number to connect account
   canSendConnectionMsg: boolean;
   isConnectionReqSent: boolean;
+  recentChats: RecentChat[];
 }
 
 const initialState: StateType = {
@@ -13,6 +20,7 @@ const initialState: StateType = {
   accConnectNumber: "", // 10 digit whatsApp number to connect account
   canSendConnectionMsg: true,
   isConnectionReqSent: false,
+  recentChats: []
 };
 
 export const ReducerChat = createSlice({
@@ -32,6 +40,9 @@ export const ReducerChat = createSlice({
     setIsConnectionReqSent: (state: StateType, action) => {
       state.isConnectionReqSent = action.payload;
     },
+    setRecentChats: (state: StateType, action) => {
+      state.recentChats = action.payload;
+    }
   },
 });
 
@@ -40,6 +51,7 @@ export const {
   setAccConnectNumber,
   setCanSendConnectionMsg,
   setIsConnectionReqSent,
+  setRecentChats,
 } = ReducerChat.actions;
 
 export default ReducerChat.reducer;
