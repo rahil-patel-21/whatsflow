@@ -80,7 +80,7 @@ const ChatListing = () => {
       {/* ------------------------------------------- */}
       {/* Search */}
       {/* ------------------------------------------- */}
-      <Box px={3} py={1}>
+      <Box px={2}>
         <TextField
           id="outlined-search"
           placeholder="Search for anything..."
@@ -98,11 +98,11 @@ const ChatListing = () => {
           onChange={(e) => dispatch(SearchChat(e.target.value))}
         />
       </Box>
-      {/* ------------------------------------------- */}
+
       {/* Contact List */}
-      {/* ------------------------------------------- */}
       <List sx={{ px: 0 }}>
-        <Box px={2.5} pb={1}>
+        {/* Recent chat */}
+        <Box px={1}>
           <Button
             id="basic-button"
             aria-controls={open ? "basic-menu" : undefined}
@@ -129,8 +129,8 @@ const ChatListing = () => {
         </Box>
         <Scrollbar
           sx={{
-            height: { lg: "calc(100vh - 100px)", md: "100vh" },
-            maxHeight: "600px",
+            height: { lg: "calc(100vh - 50px)", md: "100vh" },
+            maxHeight: "630px",
           }}
         >
           {chatState.recentChats && chatState.recentChats.length ? (
@@ -140,8 +140,8 @@ const ChatListing = () => {
                 onClick={() => dispatch(SelectChat(chat.name))}
                 sx={{
                   mb: 0.5,
-                  py: 2,
-                  px: 3,
+                  py: 1.5,
+                  px: 2,
                   alignItems: "start",
                 }}
                 selected={false}
