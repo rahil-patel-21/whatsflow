@@ -1,7 +1,7 @@
 "use client";
 
 // Imports
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
@@ -17,6 +17,9 @@ import { useSelector } from "@/store/hooks";
 import { ChatsType } from "../../../(DashboardLayout)/types/apps/chat";
 import { formatDistanceToNowStrict } from "date-fns";
 import Image from "next/image";
+import { getChat } from "@/services/chat/mainChat";
+import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
+import { useDispatch } from "react-redux";
 
 interface ChatContentProps {
   toggleChatSidebar: () => void;
@@ -25,19 +28,35 @@ interface ChatContentProps {
 const ChatContent: React.FC<ChatContentProps> = ({
   toggleChatSidebar,
 }: any) => {
+  const dispatch = useDispatch();
+  const containerRef: any = useRef(null);
   const [open, setOpen] = React.useState(true);
 
   const chatDetails: ChatsType = useSelector(
     (state) => state.chatReducer.chats[state.chatReducer.chatContent - 1]
   );
-  const chatState = useSelector(
-    (state) => state.reducerChat
-  );
+  const chatState = useSelector((state) => state.reducerChat);
+
+  const scrollToBottom = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    funGetChats();
+  }, [chatState.activeRecentChat]);
+
+  async function funGetChats() {
+    const chats = await getChat(chatState.activeRecentChat?.source ?? "");
+    dispatch(setActiveMainChats(chats));
+    scrollToBottom();
+  }
 
   return (
     <Box>
       {chatDetails ? (
-        <Box>
+        <Box >
           {/* ------------------------------------------- */}
           {/* Header Part */}
           {/* ------------------------------------------- */}
@@ -71,15 +90,25 @@ const ChatContent: React.FC<ChatContentProps> = ({
                     overlap="circular"
                   >
                     <Avatar
-                      alt={chatState.activeRecentChat?.profilePic ?? chatDetails.thumb ?? ''}
-                      src={chatState.activeRecentChat?.profilePic ?? chatDetails.thumb ?? ''}
+                      alt={
+                        chatState.activeRecentChat?.profilePic ??
+                        chatDetails.thumb ??
+                        ""
+                      }
+                      src={
+                        chatState.activeRecentChat?.profilePic ??
+                        chatDetails.thumb ??
+                        ""
+                      }
                       sx={{ width: 45, height: 45 }}
                     />
                   </Badge>
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <Typography variant="h5">{chatState.activeRecentChat?.name ?? ''}</Typography>
+                    <Typography variant="h5">
+                      {chatState.activeRecentChat?.name ?? ""}
+                    </Typography>
                   }
                   secondary={chatDetails.status}
                 />
@@ -101,6 +130,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
             {/* Chat Messages */}
             {/* ------------------------------------------- */}
             <Box
+              ref={containerRef}
               sx={{
                 flexGrow: 1,
                 height: "calc(100vh - 120px)", // Adjust for the header's height
@@ -109,13 +139,13 @@ const ChatContent: React.FC<ChatContentProps> = ({
               }}
             >
               <Box>
-                {chatDetails.messages.map((chat) => {
+                {chatState.activeMainChats.map((chat) => {
                   return (
-                    <Box key={chat.id + chat.createdAt}>
-                      {chatDetails.id === chat.senderId ? (
+                    <Box key={chat.id}>
+                      {chat.fromMe ? (
                         <Box display="flex">
                           <Box>
-                            {chat.type === "text" ? (
+                            {chat.type === "chat" ? (
                               <Box
                                 sx={{
                                   p: 1,
@@ -124,7 +154,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                   maxWidth: "320px",
                                 }}
                               >
-                                {chat.msg}
+                                {chat.content}
                               </Box>
                             ) : null}
                             {chat.type === "image" ? (
@@ -135,17 +165,21 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                 }}
                               >
                                 <Image
-                                  src={chat.msg}
+                                  src={chat.content}
                                   alt="attach"
                                   width="150"
                                   height="150"
                                 />
                               </Box>
                             ) : null}
-                            {chat.createdAt ? (
-                              <Typography variant="body2" color="grey.400">
+                            {chat.timestamp ? (
+                              <Typography
+                                variant="body2"
+                                color="grey.400"
+                                mb={1}
+                              >
                                 {formatDistanceToNowStrict(
-                                  new Date(chat.createdAt),
+                                  new Date(chat.timestamp * 1000),
                                   {
                                     addSuffix: false,
                                   }
@@ -167,7 +201,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                             display="flex"
                             flexDirection={"column"}
                           >
-                            {chat.type === "text" ? (
+                            {chat.type === "chat" ? (
                               <Box
                                 sx={{
                                   p: 1,
@@ -176,10 +210,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                   maxWidth: "320px",
                                 }}
                               >
-                                {chat.msg}
+                                {chat.content}
                               </Box>
                             ) : null}
-                            {chat.type === "image" ? (
+                            {/* {chat.type === "image" ? (
                               <Box
                                 sx={{ overflow: "hidden", lineHeight: "0px" }}
                               >
@@ -190,15 +224,15 @@ const ChatContent: React.FC<ChatContentProps> = ({
                                   height="165"
                                 />
                               </Box>
-                            ) : null}
-                            {chat.createdAt ? (
+                            ) : null} */}
+                            {chat.timestamp ? (
                               <Typography
                                 variant="body2"
                                 color="grey.400"
                                 mb={1}
                               >
                                 {formatDistanceToNowStrict(
-                                  new Date(chat.createdAt),
+                                  new Date(chat.timestamp * 1000),
                                   {
                                     addSuffix: false,
                                   }
