@@ -8,7 +8,7 @@ import { useDispatch } from "@/store/hooks";
 import React, { useEffect, useState } from "react"; 
 import { doc, onSnapshot } from "firebase/firestore";
 import { fetchRecentChats } from "@/services/chat/recentChat";
-import { setRecentChats } from "@/store/apps/chat/ChatReducer";
+import { setActiveRecentChat, setRecentChats } from "@/store/apps/chat/ChatReducer";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
 import ChatMsgSent from "@/app/components/apps/chats/ChatMsgSent";
@@ -26,6 +26,7 @@ const ChatsApp = () => {
     const recent_chats = await fetchRecentChats();
     if (recent_chats.length > 0) {
       dispatch(setRecentChats(recent_chats))
+      dispatch(setActiveRecentChat(recent_chats[0]));
     }
   }
 

@@ -28,10 +28,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
   toggleChatSidebar,
 }: any) => {
   const [open, setOpen] = React.useState(true);
-  const lgUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("lg"));
 
   const chatDetails: ChatsType = useSelector(
     (state) => state.chatReducer.chats[state.chatReducer.chatContent - 1]
+  );
+  const chatState = useSelector(
+    (state) => state.reducerChat
   );
 
   return (
@@ -71,7 +73,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                     overlap="circular"
                   >
                     <Avatar
-                      alt={chatDetails.name}
+                      alt={chatDetails.thumb ?? ''}
                       src={chatDetails.thumb}
                       sx={{ width: 40, height: 40 }}
                     />
@@ -79,7 +81,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                 </ListItemAvatar>
                 <ListItemText
                   primary={
-                    <Typography variant="h5">{chatDetails.name}</Typography>
+                    <Typography variant="h5">{chatState.activeRecentChat?.name ?? ''}</Typography>
                   }
                   secondary={chatDetails.status}
                 />
