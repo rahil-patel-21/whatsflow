@@ -4,28 +4,25 @@
 import Box from "@mui/material/Box";
 import { db } from "@/lib/firebase";
 import Divider from "@mui/material/Divider";
-import { useDispatch, useSelector } from "@/store/hooks";
-import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "@/store/hooks";
+import React, { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { fetchRecentChats } from "@/services/chat/recentChat";
 import {
-  setActiveMainChats,
   setActiveRecentChat,
   setRecentChats,
 } from "@/store/apps/chat/ChatReducer";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
 import ChatMsgSent from "@/app/components/apps/chats/ChatMsgSent";
-import { getChat } from "@/services/chat/mainChat";
 
 const ChatsApp = () => {
   const dispatch = useDispatch();
-  const chatState = useSelector((state) => state.reducerChat);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
-      recentChats(); 
-      setupRealTimeListener();
+    recentChats();
+    setupRealTimeListener();
   }, []);
 
   async function recentChats() {
@@ -68,7 +65,6 @@ const ChatsApp = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          maxHeight: "88vh", // Keep the maximum height of the entire section
         }}
       >
         {/* Chat content section */}
