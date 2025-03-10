@@ -6,6 +6,15 @@ interface RecentChat {
   name: string,
   timestamp: number,
   profilePic?: string,
+  source: string
+}
+
+interface ChatMsg {
+  content: string,
+  fromMe: boolean,
+  id: string,
+  timestamp: number
+  type: string
 }
 
 interface StateType {
@@ -15,6 +24,7 @@ interface StateType {
   isConnectionReqSent: boolean;
   recentChats: RecentChat[];
   activeRecentChat?: RecentChat;
+  activeMainChats: ChatMsg[];
 }
 
 const initialState: StateType = {
@@ -23,7 +33,8 @@ const initialState: StateType = {
   canSendConnectionMsg: true,
   isConnectionReqSent: false,
   recentChats: [],
-  activeRecentChat: undefined
+  activeRecentChat: undefined,
+  activeMainChats: []
 };
 
 export const ReducerChat = createSlice({
@@ -48,6 +59,9 @@ export const ReducerChat = createSlice({
     },
     setActiveRecentChat: (state: StateType, action) => {
       state.activeRecentChat = action.payload;
+    },
+    setActiveMainChats: (state: StateType, action) => {
+      state.activeMainChats = action.payload;
     }
   },
 });
@@ -59,6 +73,7 @@ export const {
   setIsConnectionReqSent,
   setRecentChats,
   setActiveRecentChat,
+  setActiveMainChats,
 } = ReducerChat.actions;
 
 export default ReducerChat.reducer;
