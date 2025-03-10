@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 interface RecentChat {
   content: string,
   name: string,
-  timestamp: number
+  timestamp: number,
+  profilePic?: string,
 }
 
 interface StateType {

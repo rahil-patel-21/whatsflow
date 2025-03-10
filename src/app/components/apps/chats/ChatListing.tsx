@@ -17,7 +17,6 @@ import Typography from '@mui/material/Typography'
 import { useSelector, useDispatch } from "@/store/hooks";
 import Scrollbar from "../../custom-scroll/Scrollbar";
 import {
-  SelectChat,
   fetchChats,
   SearchChat,
 } from "@/store/apps/chat/ChatSlice";
@@ -168,7 +167,7 @@ const ChatListing = () => {
                   >
                     <Avatar
                       alt="Remy Sharp"
-                      src="/images/profile/user-10.jpg"
+                      src={chat.profilePic ?? "/images/profile/user-10.jpg"}
                       sx={{ width: 42, height: 42 }}
                     />
                   </Badge>
