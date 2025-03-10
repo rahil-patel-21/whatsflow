@@ -1,1 +1,6 @@
 html { overflow-y: scroll; }
+
+/* Class to disable scrolling */
+.no-scroll {
+    overflow: hidden;
+  }
