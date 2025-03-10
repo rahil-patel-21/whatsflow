@@ -11,9 +11,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
-import { Theme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { IconDotsVertical, IconMenu2 } from "@tabler/icons-react";
 import { useSelector } from "@/store/hooks";
 import { ChatsType } from "../../../(DashboardLayout)/types/apps/chat";
@@ -73,9 +71,9 @@ const ChatContent: React.FC<ChatContentProps> = ({
                     overlap="circular"
                   >
                     <Avatar
-                      alt={chatDetails.thumb ?? ''}
-                      src={chatDetails.thumb}
-                      sx={{ width: 40, height: 40 }}
+                      alt={chatState.activeRecentChat?.profilePic ?? chatDetails.thumb ?? ''}
+                      src={chatState.activeRecentChat?.profilePic ?? chatDetails.thumb ?? ''}
+                      sx={{ width: 45, height: 45 }}
                     />
                   </Badge>
                 </ListItemAvatar>
