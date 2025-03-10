@@ -25,6 +25,7 @@ import { ChatsType } from '../../../(DashboardLayout)/types/apps/chat';
 import { last } from "lodash";
 import { formatDistanceToNowStrict } from "date-fns";
 import { IconChevronDown, IconSearch } from "@tabler/icons-react";
+import { setActiveRecentChat } from "@/store/apps/chat/ChatReducer";
 
 const ChatListing = () => {
 
@@ -137,7 +138,7 @@ const ChatListing = () => {
             chatState.recentChats.map((chat) => (
               <ListItemButton
                 key={chat.name}
-                onClick={() => dispatch(SelectChat(chat.name))}
+                onClick={() => dispatch(setActiveRecentChat(chat))}
                 sx={{
                   mb: 0.5,
                   py: 1.5,

@@ -13,6 +13,7 @@ interface StateType {
   canSendConnectionMsg: boolean;
   isConnectionReqSent: boolean;
   recentChats: RecentChat[];
+  activeRecentChat?: RecentChat;
 }
 
 const initialState: StateType = {
@@ -20,7 +21,8 @@ const initialState: StateType = {
   accConnectNumber: "", // 10 digit whatsApp number to connect account
   canSendConnectionMsg: true,
   isConnectionReqSent: false,
-  recentChats: []
+  recentChats: [],
+  activeRecentChat: undefined
 };
 
 export const ReducerChat = createSlice({
@@ -42,6 +44,9 @@ export const ReducerChat = createSlice({
     },
     setRecentChats: (state: StateType, action) => {
       state.recentChats = action.payload;
+    },
+    setActiveRecentChat: (state: StateType, action) => {
+      state.activeRecentChat = action.payload;
     }
   },
 });
@@ -52,6 +57,7 @@ export const {
   setCanSendConnectionMsg,
   setIsConnectionReqSent,
   setRecentChats,
+  setActiveRecentChat,
 } = ReducerChat.actions;
 
 export default ReducerChat.reducer;
