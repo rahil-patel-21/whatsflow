@@ -40,7 +40,47 @@ export default function RootLayout({
 
   // Redirect to /auth/login if the user visits the root path
   useEffect(() => {
-    handleAuth()
+    handleAuth();
+  }, []);
+
+  // Handle scrolling behavior based on the current URL
+  useEffect(() => {
+    const htmlElement = document.documentElement;
+
+    // Function to update scrolling behavior
+    const updateScrollBehavior = () => {
+      const currentPath = window.location.pathname;
+      if (currentPath === "/apps/chats") {
+        htmlElement.classList.add("no-scroll");
+      } else {
+        htmlElement.classList.remove("no-scroll");
+      }
+    };
+
+    // Check the initial URL
+    updateScrollBehavior();
+
+    // Listen for URL changes using the popstate event (back/forward navigation)
+    window.addEventListener("popstate", updateScrollBehavior);
+
+    // Use MutationObserver to detect route changes (e.g., when using client-side routing)
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          updateScrollBehavior();
+        }
+      });
+    });
+
+    // Observe changes in the <body> element
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("popstate", updateScrollBehavior);
+      observer.disconnect();
+      htmlElement.classList.remove("no-scroll");
+    };
   }, []); // Empty dependency array ensures this runs only once on mount
 
   return (

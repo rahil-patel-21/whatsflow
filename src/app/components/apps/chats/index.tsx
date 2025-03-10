@@ -14,7 +14,7 @@ import {
 } from "@/store/apps/chat/ChatReducer";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
-import ChatMsgSent from "@/app/components/apps/chats/ChatMsgSent";
+
 
 const ChatsApp = () => {
   const dispatch = useDispatch();
@@ -68,14 +68,14 @@ const ChatsApp = () => {
         }}
       >
         {/* Chat content section */}
-        <Box sx={{ flexGrow: 1, overflowY: "auto" }}>
+        <Box sx={{ flexGrow: 1 }}>
           <ChatContent toggleChatSidebar={() => setMobileSidebarOpen(true)} />
         </Box>
 
         <Divider />
 
         {/* Message sending section */}
-        <ChatMsgSent />
+    
       </Box>
     </>
   );
