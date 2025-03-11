@@ -1,20 +1,20 @@
+// Imports
 import React from "react";
-import { useSelector, useDispatch } from "@/store/hooks";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import InputBase from "@mui/material/InputBase";
-import {
-  IconPaperclip,
-  IconPhoto,
-  IconSend,
-} from "@tabler/icons-react";
+import IconButton from "@mui/material/IconButton";
 import { sendMsg } from "@/store/apps/chat/ChatSlice";
+import { useSelector, useDispatch } from "@/store/hooks";
+import { sendTargetMsg } from "@/services/chat/mainChat";
+import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
+import { IconPaperclip, IconPhoto, IconSend } from "@tabler/icons-react";
 
 const ChatMsgSent = () => {
   const [msg, setMsg] = React.useState<any>("");
   const dispatch = useDispatch();
 
   const id = useSelector((state) => state.chatReducer.chatContent);
+  const chatState = useSelector((state)=> state.reducerChat) ?? {};
 
   const handleChatMsgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMsg(e.target.value);
@@ -23,11 +23,24 @@ const ChatMsgSent = () => {
   const newMsg = { id, msg };
 
   const onChatMsgSubmit = (e: any) => {
+    const msgData = {
+      content: msg,
+      fromMe: true,
+      id: "PENDING",
+      timestamp: Math.floor(new Date().getTime() / 1000),
+      type: "chat",
+    };
+    const chats = [...(chatState.activeMainChats ?? [])];
+    chats.push(msgData);
+    dispatch(setActiveMainChats(chats));
+    sendTargetMsg(chatState.activeRecentChat?.source ?? '', msg);
+
     e.preventDefault();
     e.stopPropagation();
     dispatch(sendMsg(newMsg));
     setMsg("");
   };
+
 
   return (
     <Box p={2}>
@@ -49,7 +62,7 @@ const ChatMsgSent = () => {
           placeholder="Type a Message"
           size="small"
           type="text"
-          inputProps={{ "aria-label": "Type a Message" }}
+          inputProps={{ "aria-label": "Type a Message", autoComplete: "off" }}
           onChange={handleChatMsgChange.bind(null)}
         />
         <IconButton
