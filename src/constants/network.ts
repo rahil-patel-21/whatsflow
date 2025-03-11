@@ -8,4 +8,5 @@ export const nChat = {
   connectWaForcefully: nChatUrl + "connect",
   getChat: nChatUrl + "getChat",
   recentChats: nChatUrl + "recentChats",
+  sendMsg: nChatUrl + "sendMsg",
 };
