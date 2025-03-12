@@ -1,7 +1,9 @@
 "use client";
 
 // Imports
+import { db } from "@/lib/firebase";
 import React, { useEffect, useRef } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
 import Avatar from "@mui/material/Avatar";
 import Badge from "@mui/material/Badge";
 import Box from "@mui/material/Box";
@@ -39,11 +41,14 @@ const ChatContent: React.FC<ChatContentProps> = ({
   const chatState = useSelector((state) => state.reducerChat);
 
   const scrollToBottom = () => {
+    if (containerRef.current) {
       containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
     funGetChats();
+    setupRealTimeListener();
   }, [chatState.activeRecentChat]);
 
   async function funGetChats() {
@@ -51,6 +56,21 @@ const ChatContent: React.FC<ChatContentProps> = ({
     dispatch(setActiveMainChats(chats));
     scrollToBottom();
   }
+
+  // Set up a real-time listener for a specific document
+  const setupRealTimeListener = () => {
+    if (!chatState.activeRecentChat?.source) return {};
+
+    const docRef = doc(db, "Main-Chats", chatState.activeRecentChat?.source);
+
+    const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        funGetChats();
+      }
+    });
+
+    return () => unsubscribe(); // Clean up the listener when the component unmounts
+  };
 
   return chatDetails ? (
     <Box>
