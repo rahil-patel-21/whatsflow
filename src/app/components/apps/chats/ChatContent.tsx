@@ -135,7 +135,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
           }}
         >
           {chatState.activeMainChats.map((chat) => {
-            return chat.fromMe ? (
+            return chat.fromMe !== true ? (
               <Box key={chat.id}>
                 {chat.type === "chat" ? (
                   <Box
