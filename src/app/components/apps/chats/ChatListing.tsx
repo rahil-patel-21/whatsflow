@@ -1,5 +1,5 @@
 // Imports
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Alert from '@mui/material/Alert'
 import Avatar from '@mui/material/Avatar'
 import Badge from '@mui/material/Badge'
@@ -30,7 +30,6 @@ const ChatListing = () => {
 
   const dispatch = useDispatch();
   const chatState = useSelector((state) => state.reducerChat);
-  const activeChat = useSelector((state) => state.chatReducer.chatContent);
 
   useEffect(() => {
     dispatch(fetchChats());
@@ -134,17 +133,17 @@ const ChatListing = () => {
           }}
         >
           {chatState.recentChats && chatState.recentChats.length ? (
-            chatState.recentChats.map((chat) => (
+            chatState.recentChats.map((chat, index) => (
               <ListItemButton
-                key={chat.name}
-                onClick={() => dispatch(setActiveRecentChat(chat))}
+                key={chat.name + index}
+                onClick={() => dispatch(setActiveRecentChat({chat, isForcefully: true}))}
                 sx={{
                   mb: 0.5,
                   py: 1.5,
                   px: 2,
                   alignItems: "start",
                 }}
-                selected={false}
+                selected={chat.source == chatState.activeRecentChat?.source}
               >
                 <ListItemAvatar>
                   <Badge

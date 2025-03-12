@@ -2,19 +2,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface RecentChat {
-  content: string,
-  name: string,
-  timestamp: number,
-  profilePic?: string,
-  source: string
+  content: string;
+  name: string;
+  timestamp: number;
+  profilePic?: string;
+  source: string;
 }
 
 interface ChatMsg {
-  content: string,
-  fromMe: boolean,
-  id: string,
-  timestamp: number
-  type: string
+  content: string;
+  fromMe: boolean;
+  id: string;
+  timestamp: number;
+  type: string;
 }
 
 interface StateType {
@@ -34,7 +34,7 @@ const initialState: StateType = {
   isConnectionReqSent: false,
   recentChats: [],
   activeRecentChat: undefined,
-  activeMainChats: []
+  activeMainChats: [],
 };
 
 export const ReducerChat = createSlice({
@@ -58,11 +58,15 @@ export const ReducerChat = createSlice({
       state.recentChats = action.payload;
     },
     setActiveRecentChat: (state: StateType, action) => {
-      state.activeRecentChat = action.payload;
+      if (action.payload.isForcefully) {
+        state.activeRecentChat = action.payload?.chat;
+      } else if (!state.activeRecentChat) {
+        state.activeRecentChat = action.payload?.chat;
+      }
     },
     setActiveMainChats: (state: StateType, action) => {
       state.activeMainChats = action.payload;
-    }
+    },
   },
 });
 

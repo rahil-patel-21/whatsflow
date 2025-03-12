@@ -15,7 +15,6 @@ import {
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
 
-
 const ChatsApp = () => {
   const dispatch = useDispatch();
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -29,7 +28,9 @@ const ChatsApp = () => {
     const recent_chats = await fetchRecentChats();
     if (recent_chats.length > 0) {
       dispatch(setRecentChats(recent_chats));
-      dispatch(setActiveRecentChat(recent_chats[0]));
+      dispatch(
+        setActiveRecentChat({ chat: recent_chats[0], isForcefully: false })
+      );
     }
   }
 
@@ -75,7 +76,6 @@ const ChatsApp = () => {
         <Divider />
 
         {/* Message sending section */}
-    
       </Box>
     </>
   );
