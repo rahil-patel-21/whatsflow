@@ -156,12 +156,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
         >
           {chatState.activeMainChats.map((chat) => {
             return chat.fromMe !== true ? (
-              <Box
-                key={chat.id}
-                mb={1}
-                display="flex"
-                alignItems="flex-start"
-              >
+              <Box key={chat.id} mb={1} display="flex" alignItems="flex-start">
                 <Box
                   key={chat.id}
                   alignItems="flex-start"
@@ -190,8 +185,23 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       <Image
                         src={chat.content}
                         alt="attach"
-                        width="150"
-                        height="150"
+                        width="250"
+                        height="250"
+                        onClick={() => {
+                          const newWindow :any = window.open();
+                          newWindow.document.write(`
+                            <html>
+                              <head>
+                                <title>Image</title>
+                              </head>
+                              <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+                                <img src="${chat.content}" alt="Base64 Image" style="max-width: 100%; max-height: 100%;" />
+                              </body>
+                            </html>
+                          `);
+                          newWindow.document.close();
+                        }}
+                        style={{ cursor: "pointer" }} 
                       />
                     </Box>
                   ) : null}
@@ -231,6 +241,36 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       }}
                     >
                       {chat.content}
+                    </Box>
+                  ) : null}
+                  {chat.type === "image" ? (
+                    <Box
+                      sx={{
+                        overflow: "hidden",
+                        lineHeight: "0px",
+                      }}
+                    >
+                      <Image
+                        src={chat.content}
+                        alt="attach"
+                        width="250"
+                        height="250"
+                        onClick={() => {
+                          const newWindow :any = window.open();
+                          newWindow.document.write(`
+                            <html>
+                              <head>
+                                <title>Image</title>
+                              </head>
+                              <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
+                                <img src="${chat.content}" alt="Base64 Image" style="max-width: 100%; max-height: 100%;" />
+                              </body>
+                            </html>
+                          `);
+                          newWindow.document.close();
+                        }}
+                        style={{ cursor: "pointer" }} 
+                      />
                     </Box>
                   ) : null}
                   {chat.timestamp ? (
