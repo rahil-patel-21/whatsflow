@@ -156,45 +156,57 @@ const ChatContent: React.FC<ChatContentProps> = ({
         >
           {chatState.activeMainChats.map((chat) => {
             return chat.fromMe !== true ? (
-              <Box key={chat.id}>
-                {chat.type === "chat" ? (
-                  <Box
-                    sx={{
-                      p: 1,
-                      backgroundColor: "grey.100",
-                      mr: "auto",
-                      maxWidth: "320px",
-                    }}
-                  >
-                    {chat.content}
-                  </Box>
-                ) : null}
-                {chat.type === "image" ? (
-                  <Box
-                    sx={{
-                      overflow: "hidden",
-                      lineHeight: "0px",
-                    }}
-                  >
-                    <Image
-                      src={chat.content}
-                      alt="attach"
-                      width="150"
-                      height="150"
-                    />
-                  </Box>
-                ) : null}
-                {chat.timestamp ? (
-                  <Typography variant="body2" color="grey.400" mb={1}>
-                    {formatDistanceToNowStrict(
-                      new Date(chat.timestamp * 1000),
-                      {
-                        addSuffix: false,
-                      }
-                    )}{" "}
-                    ago
-                  </Typography>
-                ) : null}
+              <Box
+                key={chat.id}
+                mb={1}
+                display="flex"
+                alignItems="flex-start"
+              >
+                <Box
+                  key={chat.id}
+                  alignItems="flex-start"
+                  display="flex"
+                  flexDirection={"column"}
+                >
+                  {chat.type === "chat" ? (
+                    <Box
+                      sx={{
+                        p: 1,
+                        backgroundColor: "grey.100",
+                        mr: "auto",
+                        maxWidth: "350px",
+                      }}
+                    >
+                      {chat.content}
+                    </Box>
+                  ) : null}
+                  {chat.type === "image" ? (
+                    <Box
+                      sx={{
+                        overflow: "hidden",
+                        lineHeight: "0px",
+                      }}
+                    >
+                      <Image
+                        src={chat.content}
+                        alt="attach"
+                        width="150"
+                        height="150"
+                      />
+                    </Box>
+                  ) : null}
+                  {chat.timestamp ? (
+                    <Typography variant="body2" color="grey.400" mb={1}>
+                      {formatDistanceToNowStrict(
+                        new Date(chat.timestamp * 1000),
+                        {
+                          addSuffix: false,
+                        }
+                      )}{" "}
+                      ago
+                    </Typography>
+                  ) : null}
+                </Box>
               </Box>
             ) : (
               <Box
@@ -215,7 +227,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         p: 1,
                         backgroundColor: "primary.light",
                         ml: "auto",
-                        maxWidth: "320px",
+                        maxWidth: "350px",
                       }}
                     >
                       {chat.content}
