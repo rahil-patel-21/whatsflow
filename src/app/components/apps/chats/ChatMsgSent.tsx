@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "@/store/hooks";
 import { sendTargetMsg } from "@/services/chat/mainChat";
 import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
 import { IconPaperclip, IconPhoto, IconSend } from "@tabler/icons-react";
+import { sanitizeMsg } from "@/utils/str.service";
 
 const ChatMsgSent = () => {
   const [msg, setMsg] = React.useState<any>("");
@@ -20,7 +21,7 @@ const ChatMsgSent = () => {
 
   const onChatMsgSubmit = (e: any) => {
     const msgData = {
-      content: msg,
+      content: sanitizeMsg(msg),
       fromMe: true,
       id: "PENDING",
       timestamp: Math.floor(new Date().getTime() / 1000),
@@ -29,7 +30,7 @@ const ChatMsgSent = () => {
     const chats = [...(chatState.activeMainChats ?? [])];
     chats.push(msgData);
     dispatch(setActiveMainChats(chats));
-    sendTargetMsg(chatState.activeRecentChat?.source ?? "", msg);
+    sendTargetMsg(chatState.activeRecentChat?.source ?? "", sanitizeMsg(msg));
     dispatch(sendMsg(newMsg));
     setMsg("");
   };
