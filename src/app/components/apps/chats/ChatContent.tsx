@@ -77,7 +77,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return chatDetails ? (
     <Box>
-
       {/* Header Part */}
       <Box position="sticky" bgcolor="white">
         <Box display="flex" alignItems="center" px={2} py={1}>
@@ -178,7 +177,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         wordWrap: "break-word", // Break long words if necessary
                       }}
                     >
-                      {chat.content}
+                      {chat.content.split("\n").map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          <br />
+                        </span>
+                      ))}
                     </Box>
                   ) : null}
                   {chat.type === "image" ? (
@@ -248,7 +252,12 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         wordWrap: "break-word", // Break long words if necessary
                       }}
                     >
-                      {chat.content}
+                      {chat.content.split("\n").map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          <br />
+                        </span>
+                      ))}
                     </Box>
                   ) : null}
                   {chat.type === "image" ? (
@@ -314,7 +323,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
       </Box>
 
       {/* <MediaDialogue/> */}
-
     </Box>
   ) : (
     <Box display="flex" alignItems="center" p={2} pb={1} pt={1}>
