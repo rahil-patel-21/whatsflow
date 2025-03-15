@@ -76,9 +76,11 @@ const ChatMsgSent = () => {
         >
           <IconSend stroke={1.5} size="20" />
         </IconButton>
+
         <IconButton aria-label="delete">
           <IconPhoto stroke={1.5} size="20" />
         </IconButton>
+        
         <IconButton aria-label="delete">
           <IconPaperclip stroke={1.5} size="20" />
         </IconButton>

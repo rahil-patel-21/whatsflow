@@ -23,6 +23,9 @@ import { getChat } from "@/services/chat/mainChat";
 import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
 import { useDispatch } from "react-redux";
 import ChatMsgSent from "./ChatMsgSent";
+import MediaTextInput from "./media/mediaTextInput";
+import { STATIC_BASE64_IMAGE } from "@/constants/strings";
+import MediaDialogue from "./media/mediaDialouge";
 
 interface ChatContentProps {
   toggleChatSidebar: () => void;
@@ -74,8 +77,9 @@ const ChatContent: React.FC<ChatContentProps> = ({
 
   return chatDetails ? (
     <Box>
+
       {/* Header Part */}
-      <Box position="sticky" top={0} zIndex={100} bgcolor="white">
+      <Box position="sticky" bgcolor="white">
         <Box display="flex" alignItems="center" px={2} py={1}>
           <Box
             sx={{
@@ -170,6 +174,8 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         backgroundColor: "grey.100",
                         mr: "auto",
                         maxWidth: "350px",
+                        whiteSpace: "normal", // Allow text to wrap
+                        wordWrap: "break-word", // Break long words if necessary
                       }}
                     >
                       {chat.content}
@@ -188,7 +194,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         width="250"
                         height="250"
                         onClick={() => {
-                          const newWindow :any = window.open();
+                          const newWindow: any = window.open();
                           newWindow.document.write(`
                             <html>
                               <head>
@@ -201,7 +207,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                           `);
                           newWindow.document.close();
                         }}
-                        style={{ cursor: "pointer" }} 
+                        style={{ cursor: "pointer" }}
                       />
                     </Box>
                   ) : null}
@@ -238,6 +244,8 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         backgroundColor: "primary.light",
                         ml: "auto",
                         maxWidth: "350px",
+                        whiteSpace: "normal", // Allow text to wrap
+                        wordWrap: "break-word", // Break long words if necessary
                       }}
                     >
                       {chat.content}
@@ -256,7 +264,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         width="250"
                         height="250"
                         onClick={() => {
-                          const newWindow :any = window.open();
+                          const newWindow: any = window.open();
                           newWindow.document.write(`
                             <html>
                               <head>
@@ -269,7 +277,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                           `);
                           newWindow.document.close();
                         }}
-                        style={{ cursor: "pointer" }} 
+                        style={{ cursor: "pointer" }}
                       />
                     </Box>
                   ) : null}
@@ -294,7 +302,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
         <Box
           position="sticky"
           bottom={0}
-          zIndex={100}
           bgcolor="white"
           sx={{
             borderTop: "1px solid",
@@ -305,6 +312,9 @@ const ChatContent: React.FC<ChatContentProps> = ({
           <ChatMsgSent />
         </Box>
       </Box>
+
+      {/* <MediaDialogue/> */}
+
     </Box>
   ) : (
     <Box display="flex" alignItems="center" p={2} pb={1} pt={1}>
