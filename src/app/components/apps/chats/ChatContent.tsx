@@ -26,6 +26,7 @@ import ChatMsgSent from "./ChatMsgSent";
 import MediaTextInput from "./media/mediaTextInput";
 import { STATIC_BASE64_IMAGE } from "@/constants/strings";
 import MediaDialogue from "./media/mediaDialouge";
+import ChatMessage from "./BubbleText";
 
 interface ChatContentProps {
   toggleChatSidebar: () => void;
@@ -167,23 +168,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
                   flexDirection={"column"}
                 >
                   {chat.type === "chat" ? (
-                    <Box
-                      sx={{
-                        p: 1,
-                        backgroundColor: "grey.100",
-                        mr: "auto",
-                        maxWidth: "350px",
-                        whiteSpace: "normal", // Allow text to wrap
-                        wordWrap: "break-word", // Break long words if necessary
-                      }}
-                    >
-                      {chat.content.split("\n").map((line, index) => (
-                        <span key={index}>
-                          {line}
-                          <br />
-                        </span>
-                      ))}
-                    </Box>
+                    <ChatMessage
+                      chat={chat}
+                      sx={{ backgroundColor: "grey.100", mr: "auto" }}
+                    />
                   ) : null}
                   {chat.type === "image" ? (
                     <Box
@@ -242,23 +230,10 @@ const ChatContent: React.FC<ChatContentProps> = ({
                   flexDirection={"column"}
                 >
                   {chat.type === "chat" ? (
-                    <Box
-                      sx={{
-                        p: 1,
-                        backgroundColor: "primary.light",
-                        ml: "auto",
-                        maxWidth: "350px",
-                        whiteSpace: "normal", // Allow text to wrap
-                        wordWrap: "break-word", // Break long words if necessary
-                      }}
-                    >
-                      {chat.content.split("\n").map((line, index) => (
-                        <span key={index}>
-                          {line}
-                          <br />
-                        </span>
-                      ))}
-                    </Box>
+                    <ChatMessage
+                      chat={chat}
+                      sx={{ backgroundColor: "primary.light", ml: "auto" }}
+                    />
                   ) : null}
                   {chat.type === "image" ? (
                     <Box
