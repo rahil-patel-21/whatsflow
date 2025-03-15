@@ -5,7 +5,7 @@ import Stack from '@mui/material/Stack';
 import Toolbar from '@mui/material/Toolbar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { styled } from '@mui/material/styles';
-import { useSelector, useDispatch } from '@/store/hooks';
+import { useSelector } from '@/store/hooks';
 import Notifications from './Notification';
 import Profile from './Profile';
 import Search from './Search';
@@ -20,7 +20,6 @@ const Header = () => {
 
   // drawer
   const customizer = useSelector((state: AppState) => state.customizer);
-  const dispatch = useDispatch();
 
   const AppBarStyled = styled(AppBar)(({ theme }) => ({
     boxShadow: 'none',
