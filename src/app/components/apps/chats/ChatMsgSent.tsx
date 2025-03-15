@@ -1,7 +1,7 @@
 // Imports
 import React from "react";
 import Box from "@mui/material/Box";
-import InputBase from "@mui/material/InputBase";
+import MainInput from "./input/MainInput";
 import IconButton from "@mui/material/IconButton";
 import { sendMsg } from "@/store/apps/chat/ChatSlice";
 import { useSelector, useDispatch } from "@/store/hooks";
@@ -14,11 +14,7 @@ const ChatMsgSent = () => {
   const dispatch = useDispatch();
 
   const id = useSelector((state) => state.chatReducer.chatContent);
-  const chatState = useSelector((state)=> state.reducerChat) ?? {};
-
-  const handleChatMsgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMsg(e.target.value);
-  };
+  const chatState = useSelector((state) => state.reducerChat) ?? {};
 
   const newMsg = { id, msg };
 
@@ -33,14 +29,10 @@ const ChatMsgSent = () => {
     const chats = [...(chatState.activeMainChats ?? [])];
     chats.push(msgData);
     dispatch(setActiveMainChats(chats));
-    sendTargetMsg(chatState.activeRecentChat?.source ?? '', msg);
-
-    e.preventDefault();
-    e.stopPropagation();
+    sendTargetMsg(chatState.activeRecentChat?.source ?? "", msg);
     dispatch(sendMsg(newMsg));
     setMsg("");
   };
-
 
   return (
     <Box p={2}>
@@ -55,16 +47,15 @@ const ChatMsgSent = () => {
         {/* Emoji picker */}
         {/* ------------------------------------------- */}
 
-        <InputBase
-          id="msg-sent"
-          fullWidth
-          value={msg}
-          placeholder="Type a Message"
-          size="small"
-          type="text"
-          inputProps={{ "aria-label": "Type a Message", autoComplete: "off" }}
-          onChange={handleChatMsgChange.bind(null)}
+        <MainInput
+          callback={(e, source) => {
+            setMsg(e);
+            if (source) {
+              onChatMsgSubmit(e);
+            }
+          }}
         />
+
         <IconButton
           aria-label="delete"
           onClick={() => {
@@ -80,7 +71,7 @@ const ChatMsgSent = () => {
         <IconButton aria-label="delete">
           <IconPhoto stroke={1.5} size="20" />
         </IconButton>
-        
+
         <IconButton aria-label="delete">
           <IconPaperclip stroke={1.5} size="20" />
         </IconButton>
