@@ -3,12 +3,13 @@ import React from "react";
 import Box from "@mui/material/Box";
 import MainInput from "./input/MainInput";
 import IconButton from "@mui/material/IconButton";
+import { sanitizeMsg } from "@/utils/str.service";
+import ImageFilePicker from "./media/imagePicker";
 import { sendMsg } from "@/store/apps/chat/ChatSlice";
 import { useSelector, useDispatch } from "@/store/hooks";
 import { sendTargetMsg } from "@/services/chat/mainChat";
+import { IconPaperclip, IconSend } from "@tabler/icons-react";
 import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
-import { IconPaperclip, IconPhoto, IconSend } from "@tabler/icons-react";
-import { sanitizeMsg } from "@/utils/str.service";
 
 const ChatMsgSent = () => {
   const [msg, setMsg] = React.useState<any>("");
@@ -69,9 +70,7 @@ const ChatMsgSent = () => {
           <IconSend stroke={1.5} size="20" />
         </IconButton>
 
-        <IconButton aria-label="delete">
-          <IconPhoto stroke={1.5} size="20" />
-        </IconButton>
+       <ImageFilePicker/>
 
         <IconButton aria-label="delete">
           <IconPaperclip stroke={1.5} size="20" />
