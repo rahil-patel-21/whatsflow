@@ -9,4 +9,5 @@ export const nChat = {
   getChat: nChatUrl + "getChat",
   recentChats: nChatUrl + "recentChats",
   sendMsg: nChatUrl + "sendMsg",
+  sendMedia: nChatUrl + "sendMedia",
 };

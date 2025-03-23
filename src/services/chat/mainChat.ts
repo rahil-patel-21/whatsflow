@@ -17,3 +17,5 @@ export async function sendTargetMsg(sourceNumber: string, text: string) {
   });
   return response.data;
 }
+
+export async function sendMediaMsg() {}

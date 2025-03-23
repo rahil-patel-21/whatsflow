@@ -1,11 +1,11 @@
 // Imports
 import { useState, useRef } from "react";
-import { IconPhoto, IconX } from "@tabler/icons-react";
-import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
 import MediaTextInput from "./mediaTextInput";
+import IconButton from "@mui/material/IconButton";
+import DialogTitle from "@mui/material/DialogTitle";
+import { IconPhoto, IconX } from "@tabler/icons-react";
+import DialogContent from "@mui/material/DialogContent";
 
 const ImageFilePicker = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +66,10 @@ const ImageFilePicker = () => {
     }
   };
 
+  async function funSendMediaMsg() {
+    setIsDialogOpen(false);
+  }
+
   return (
     <div>
       {/* Hidden file input */}
@@ -120,7 +124,13 @@ const ImageFilePicker = () => {
                 alt="Resized"
                 style={{ maxWidth: "100%", height: "auto" }}
               />
-              <MediaTextInput />
+              <MediaTextInput
+                callback={(msg, source) => {
+                  if (source == 'Enter') {
+                    funSendMediaMsg();
+                  }
+                }}
+              />
             </div>
           )}
         </DialogContent>
