@@ -1,20 +1,26 @@
 // Imports
 import { useState, useRef } from "react";
-import { IconPhoto, IconX } from "@tabler/icons-react";
-import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
+import { useSelector } from "@/store/hooks";
 import MediaTextInput from "./mediaTextInput";
+import IconButton from "@mui/material/IconButton";
+import DialogTitle from "@mui/material/DialogTitle";
+import { IconPhoto, IconX } from "@tabler/icons-react";
+import DialogContent from "@mui/material/DialogContent";
+import { sendMediaMsg } from "@/services/chat/mainChat";
 
 const ImageFilePicker = () => {
+  const [msg, setMsg] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [resizedImageUrl, setResizedImageUrl] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File>();
+    const chatState = useSelector((state) => state.reducerChat);
+  const [resizedImageUrl, setResizedImageUrl] = useState<string | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file && file.type.startsWith("image/")) {
+      setSelectedFile(file)
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
         const img = new Image();
@@ -65,6 +71,21 @@ const ImageFilePicker = () => {
       fileInputRef.current.value = "";
     }
   };
+
+  async function funSendMediaMsg() {
+    if (!chatState.activeRecentChat?.source || !selectedFile) {
+      return;
+    }
+
+    setIsDialogOpen(false);
+
+    const data = new FormData();
+    data.append('caption', msg);
+    data.append('file', selectedFile);
+    data.append('number', chatState.activeRecentChat?.source);
+
+    await sendMediaMsg(data);
+  }
 
   return (
     <div>
@@ -120,7 +141,16 @@ const ImageFilePicker = () => {
                 alt="Resized"
                 style={{ maxWidth: "100%", height: "auto" }}
               />
-              <MediaTextInput />
+              <MediaTextInput
+                callback={(msgContent, source) => {
+                  if (msgContent) {
+                    setMsg(msgContent)
+                  }
+                  if (source == 'Enter') {
+                    funSendMediaMsg();
+                  } 
+                }}
+              />
             </div>
           )}
         </DialogContent>
