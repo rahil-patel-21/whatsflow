@@ -18,4 +18,9 @@ export async function sendTargetMsg(sourceNumber: string, text: string) {
   return response.data;
 }
 
-export async function sendMediaMsg() {}
+export async function sendMediaMsg(formData: FormData) {
+  const response = await apiClient.post(nChat.sendMedia, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data;
+}
