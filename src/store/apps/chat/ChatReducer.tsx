@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface RecentChat {
   content: string;
+  caption:string;
   name: string;
   timestamp: number;
   profilePic?: string;
@@ -11,6 +12,7 @@ interface RecentChat {
 
 interface ChatMsg {
   content: string;
+  caption:string;
   fromMe: boolean;
   id: string;
   timestamp: number;

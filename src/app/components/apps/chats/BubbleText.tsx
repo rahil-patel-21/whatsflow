@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 
 // Define the type for the chat object
 interface Chat {
+  caption?: string; 
   content: string;
 }
 
@@ -52,7 +53,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({ chat, sx }) => {
         ...sx,
       }}
     >
-      {renderTextWithLinks(chat.content)}
+      {renderTextWithLinks(chat.caption ?? chat.content)}
     </Box>
   );
 };

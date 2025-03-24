@@ -22,6 +22,7 @@ const ChatMsgSent = () => {
 
   const onChatMsgSubmit = (e: any) => {
     const msgData = {
+      caption: '',
       content: sanitizeMsg(msg),
       fromMe: true,
       id: "PENDING",
