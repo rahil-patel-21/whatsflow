@@ -238,7 +238,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
         </Box>
       </Box>
 
-      {/* <MediaDialogue/> */}
     </Box>
   ) : (
     <Box display="flex" alignItems="center" p={2} pb={1} pt={1}>

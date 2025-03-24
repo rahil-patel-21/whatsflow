@@ -58,8 +58,6 @@ const MediaDialogue = () => {
               }}
             />
 
-            {/* Text Input */}
-            <MediaTextInput />
           </div>
         </div>
       )}
