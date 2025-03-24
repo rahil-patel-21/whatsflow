@@ -38,6 +38,7 @@ const MediaTextInput: React.FC<InputProps> = ({ callback }) => {
       callback(value, "Enter");
       setMsg("");
       setInputKey((prevKey) => prevKey + 1); // Change the key to force re-render
+      event.preventDefault();
     }
     // Update the message normally
     else {
@@ -48,6 +49,7 @@ const MediaTextInput: React.FC<InputProps> = ({ callback }) => {
 
   const onChatMsgSubmit = (e: any) => {
     const msgData = {
+      caption: '',
       content: msg,
       fromMe: true,
       id: "mediaTextInput",
