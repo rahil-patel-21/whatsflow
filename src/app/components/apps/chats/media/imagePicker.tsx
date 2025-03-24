@@ -1,28 +1,37 @@
 // Imports
 import { useState, useRef } from "react";
 import Dialog from "@mui/material/Dialog";
-import { useSelector } from "@/store/hooks";
 import MediaTextInput from "./mediaTextInput";
+import { sanitizeMsg } from "@/utils/str.service";
 import IconButton from "@mui/material/IconButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import { IconPhoto, IconX } from "@tabler/icons-react";
 import DialogContent from "@mui/material/DialogContent";
 import { sendMediaMsg } from "@/services/chat/mainChat";
+import { useDispatch, useSelector } from "@/store/hooks";
+import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
 
 const ImageFilePicker = () => {
+  const dispatch = useDispatch();
   const [msg, setMsg] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File>();
-    const chatState = useSelector((state) => state.reducerChat);
+  const chatState = useSelector((state) => state.reducerChat);
+  const [base64String, setBase64String] = useState<string | null>(null);
   const [resizedImageUrl, setResizedImageUrl] = useState<string | null>(null);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file && file.type.startsWith("image/")) {
-      setSelectedFile(file)
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onload = (e: ProgressEvent<FileReader>) => {
+
+        const base64 = reader.result as string;
+        setBase64String(base64);
+
         const img = new Image();
         img.src = e.target?.result as string;
 
@@ -80,9 +89,21 @@ const ImageFilePicker = () => {
     setIsDialogOpen(false);
 
     const data = new FormData();
-    data.append('caption', msg);
-    data.append('file', selectedFile);
-    data.append('number', chatState.activeRecentChat?.source);
+    data.append("caption", msg);
+    data.append("file", selectedFile);
+    data.append("number", chatState.activeRecentChat?.source);
+
+    const msgData = {
+      caption: msg,
+      content: sanitizeMsg(base64String ?? ''),
+      fromMe: true,
+      id: Math.floor(new Date().getTime() / 1000).toString(),
+      timestamp: Math.floor(new Date().getTime() / 1000),
+      type: "image",
+    };
+    const chats = [...(chatState.activeMainChats ?? [])];
+    chats.push(msgData);
+    dispatch(setActiveMainChats(chats));
 
     await sendMediaMsg(data);
   }
@@ -144,11 +165,11 @@ const ImageFilePicker = () => {
               <MediaTextInput
                 callback={(msgContent, source) => {
                   if (msgContent) {
-                    setMsg(msgContent)
+                    setMsg(msgContent);
                   }
-                  if (source == 'Enter') {
+                  if (source == "Enter") {
                     funSendMediaMsg();
-                  } 
+                  }
                 }}
               />
             </div>

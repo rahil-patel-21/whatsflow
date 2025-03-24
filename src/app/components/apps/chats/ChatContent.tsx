@@ -18,15 +18,12 @@ import { IconDotsVertical, IconMenu2 } from "@tabler/icons-react";
 import { useSelector } from "@/store/hooks";
 import { ChatsType } from "../../../(DashboardLayout)/types/apps/chat";
 import { formatDistanceToNowStrict } from "date-fns";
-import Image from "next/image";
 import { getChat } from "@/services/chat/mainChat";
 import { setActiveMainChats } from "@/store/apps/chat/ChatReducer";
 import { useDispatch } from "react-redux";
 import ChatMsgSent from "./ChatMsgSent";
-import MediaTextInput from "./media/mediaTextInput";
-import { STATIC_BASE64_IMAGE } from "@/constants/strings";
-import MediaDialogue from "./media/mediaDialouge";
 import ChatMessage from "./BubbleText";
+import BubbleImage from "./BubbleImage";
 
 interface ChatContentProps {
   toggleChatSidebar: () => void;
@@ -159,6 +156,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
           }}
         >
           {chatState.activeMainChats.map((chat) => {
+            // Left bubble
             return chat.fromMe !== true ? (
               <Box key={chat.id} mb={1} display="flex" alignItems="flex-start">
                 <Box
@@ -173,36 +171,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       sx={{ backgroundColor: "grey.100", mr: "auto" }}
                     />
                   ) : null}
-                  {chat.type === "image" ? (
-                    <Box
-                      sx={{
-                        overflow: "hidden",
-                        lineHeight: "0px",
-                      }}
-                    >
-                      <Image
-                        src={chat.content}
-                        alt="attach"
-                        width="250"
-                        height="250"
-                        onClick={() => {
-                          const newWindow: any = window.open();
-                          newWindow.document.write(`
-                            <html>
-                              <head>
-                                <title>Image</title>
-                              </head>
-                              <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
-                                <img src="${chat.content}" alt="Base64 Image" style="max-width: 100%; max-height: 100%;" />
-                              </body>
-                            </html>
-                          `);
-                          newWindow.document.close();
-                        }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Box>
-                  ) : null}
+                  {chat.type === "image" ? <BubbleImage chat={chat} /> : null}
                   {chat.timestamp ? (
                     <Typography variant="body2" color="grey.400" mb={1}>
                       {formatDistanceToNowStrict(
@@ -217,6 +186,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                 </Box>
               </Box>
             ) : (
+              // Right bubble
               <Box
                 key={chat.id}
                 mb={1}
@@ -235,36 +205,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                       sx={{ backgroundColor: "primary.light", ml: "auto" }}
                     />
                   ) : null}
-                  {chat.type === "image" ? (
-                    <Box
-                      sx={{
-                        overflow: "hidden",
-                        lineHeight: "0px",
-                      }}
-                    >
-                      <Image
-                        src={chat.content}
-                        alt="attach"
-                        width="250"
-                        height="250"
-                        onClick={() => {
-                          const newWindow: any = window.open();
-                          newWindow.document.write(`
-                            <html>
-                              <head>
-                                <title>Image</title>
-                              </head>
-                              <body style="margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh;">
-                                <img src="${chat.content}" alt="Base64 Image" style="max-width: 100%; max-height: 100%;" />
-                              </body>
-                            </html>
-                          `);
-                          newWindow.document.close();
-                        }}
-                        style={{ cursor: "pointer" }}
-                      />
-                    </Box>
-                  ) : null}
+                  {chat.type === "image" ? <BubbleImage chat={chat} /> : null}
                   {chat.timestamp ? (
                     <Typography variant="body2" color="grey.400" mb={1}>
                       {formatDistanceToNowStrict(
@@ -272,7 +213,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
                         {
                           addSuffix: false,
                         }
-                      )}{" "}
+                      )}
                       ago
                     </Typography>
                   ) : null}
