@@ -1,68 +1,34 @@
 // Imports
 import React, { useEffect } from "react";
-import Alert from '@mui/material/Alert'
-import Avatar from '@mui/material/Avatar'
-import Badge from '@mui/material/Badge'
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import InputAdornment from '@mui/material/InputAdornment'
-import List from '@mui/material/List'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import TextField from '@mui/material/TextField'
-import Typography from '@mui/material/Typography'
+import Alert from "@mui/material/Alert";
+import Avatar from "@mui/material/Avatar";
+import Badge from "@mui/material/Badge";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import InputAdornment from "@mui/material/InputAdornment";
+import List from "@mui/material/List";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { useSelector, useDispatch } from "@/store/hooks";
 import Scrollbar from "../../custom-scroll/Scrollbar";
-import {
-  fetchChats,
-  SearchChat,
-} from "@/store/apps/chat/ChatSlice";
-import { ChatsType } from '../../../(DashboardLayout)/types/apps/chat';
-import { last } from "lodash";
+import { fetchChats, SearchChat } from "@/store/apps/chat/ChatSlice";
 import { formatDistanceToNowStrict } from "date-fns";
 import { IconChevronDown, IconSearch } from "@tabler/icons-react";
 import { setActiveRecentChat } from "@/store/apps/chat/ChatReducer";
+import Chip from "@mui/material/Chip";
 
 const ChatListing = () => {
-
   const dispatch = useDispatch();
   const chatState = useSelector((state) => state.reducerChat);
 
   useEffect(() => {
     dispatch(fetchChats());
   }, [dispatch]);
-
-  const filterChats = (chats: ChatsType[], cSearch: string) => {
-    if (chats)
-      return chats.filter((t) =>
-        t.name.toLocaleLowerCase().includes(cSearch.toLocaleLowerCase())
-      );
-
-    return chats;
-  };
-
-  const chats = useSelector((state) =>
-    filterChats(state.chatReducer.chats, state.chatReducer.chatSearch)
-  );
-
-  const getDetails = (conversation: ChatsType) => {
-    let displayText = "";
-
-    const lastMessage = conversation.messages[conversation.messages.length - 1];
-    if (lastMessage) {
-      const sender = lastMessage.senderId === conversation.id ? "You: " : "";
-      const message =
-        lastMessage.type === "image" ? "Sent a photo" : lastMessage.msg;
-      displayText = `${sender}${message}`;
-    }
-
-    return displayText;
-  };
-
-  const lastActivity = (chat: ChatsType) => last(chat.messages)?.createdAt;
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -76,9 +42,6 @@ const ChatListing = () => {
   return (
     <div>
       <Box py={1}></Box>
-      {/* ------------------------------------------- */}
-      {/* Search */}
-      {/* ------------------------------------------- */}
       <Box px={2}>
         <TextField
           id="outlined-search"
@@ -110,7 +73,8 @@ const ChatListing = () => {
             onClick={handleClick}
             color="inherit"
           >
-            Recent Chats  ({chatState.recentChats.length})<IconChevronDown size="16" />
+            Recent Chats ({chatState.recentChats.length})
+            <IconChevronDown size="16" />
           </Button>
           <Menu
             id="basic-menu"
@@ -121,9 +85,9 @@ const ChatListing = () => {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleClose}>Sort By Time</MenuItem>
-            <MenuItem onClick={handleClose}>Sort By Unread</MenuItem>
-            <MenuItem onClick={handleClose}>Mark as all Read</MenuItem>
+            <MenuItem onClick={handleClose}>Unread</MenuItem>
+            <MenuItem onClick={handleClose}>Archives</MenuItem>
+            <MenuItem onClick={handleClose}>Promotional</MenuItem>
           </Menu>
         </Box>
         <Scrollbar
@@ -136,7 +100,9 @@ const ChatListing = () => {
             chatState.recentChats.map((chat, index) => (
               <ListItemButton
                 key={chat.name + index}
-                onClick={() => dispatch(setActiveRecentChat({chat, isForcefully: true}))}
+                onClick={() =>
+                  dispatch(setActiveRecentChat({ chat, isForcefully: true }))
+                }
                 sx={{
                   mb: 0.5,
                   py: 1.5,
@@ -154,8 +120,8 @@ const ChatListing = () => {
                       //   ? "error"
                       //   : chat.status === "away"
                       //   ? "warning"
-                      //   : 
-                        "secondary"
+                      //   :
+                      "secondary"
                     }
                     variant="dot"
                     anchorOrigin={{
@@ -183,12 +149,39 @@ const ChatListing = () => {
                   }}
                   sx={{ my: 0 }}
                 />
-                <Box sx={{ flexShrink: "0" }} mt={0.5}>
+                <Box
+                  sx={{
+                    flexShrink: "0",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center", // horizontal centering
+                    justifyContent: "end", // vertical centering
+                    mt: 0.5,
+                  }}
+                  mt={0.5}
+                >
                   <Typography variant="body2">
                     {formatDistanceToNowStrict(new Date(chat.timestamp), {
                       addSuffix: false,
                     })}
                   </Typography>
+                  {chatState.activeRecentChat?.source != chat.source && chat.unReadCounts > 0 && (
+                    <Chip
+                      label={
+                        chat.unReadCounts < 10 ? chat.unReadCounts : "9+"
+                      }
+                      sx={{
+                        height: '20px',      // Reduce height
+                        fontSize: '0.7rem',   // Reduce font size
+                        padding: '0 4px',     // Reduce horizontal padding
+                        '& .MuiChip-label': { // Target the label specifically
+                          padding: '0 2px',   // Further reduce label padding
+                        },
+                      }}
+                      color="primary"
+                      size="small"
+                    />
+                  )}
                 </Box>
               </ListItemButton>
             ))
