@@ -8,6 +8,7 @@ interface RecentChat {
   timestamp: number;
   profilePic?: string;
   source: string;
+  unReadCounts: number;
 }
 
 interface ChatMsg {
