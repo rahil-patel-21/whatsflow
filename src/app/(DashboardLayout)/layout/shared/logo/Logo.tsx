@@ -1,9 +1,11 @@
 'use client'
-import { useSelector } from "@/store/hooks";
+
+// Imports
 import Link from "next/link";
-import { styled } from "@mui/material/styles";
-import { AppState } from "@/store/store";
 import Image from "next/image";
+import { AppState } from "@/store/store";
+import { useSelector } from "@/store/hooks";
+import { styled } from "@mui/material/styles";
 
 const Logo = () => {
   const customizer = useSelector((state: AppState) => state.customizer);
@@ -27,7 +29,7 @@ const Logo = () => {
           />
         ) : (
           <Image
-            src={"/images/logos/dark-logo.svg"}
+            src={"/images/logos/Original_Logo.svg"}
             alt="logo"
             height={customizer.TopbarHeight}
             width={174}
