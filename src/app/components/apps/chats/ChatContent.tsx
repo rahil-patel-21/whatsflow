@@ -76,7 +76,7 @@ const ChatContent: React.FC<ChatContentProps> = ({
   return chatDetails ? (
     <Box>
       {/* Header Part */}
-      <Box position="sticky" bgcolor="white">
+      <Box position="sticky">
         <Box display="flex" alignItems="center" px={2} py={1}>
           <Box
             sx={{
@@ -227,7 +227,6 @@ const ChatContent: React.FC<ChatContentProps> = ({
         <Box
           position="sticky"
           bottom={0}
-          bgcolor="white"
           sx={{
             borderTop: "1px solid",
             borderColor: "divider",
