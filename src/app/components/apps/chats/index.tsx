@@ -3,15 +3,15 @@
 // Imports
 import Box from "@mui/material/Box";
 import { db } from "@/lib/firebase";
+import {
+  setActiveRecentChat,
+  setRecentChats,
+} from "@/store/apps/chat/ChatReducer";
 import Divider from "@mui/material/Divider";
 import { useDispatch } from "@/store/hooks";
 import React, { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { fetchRecentChats } from "@/services/chat/recentChat";
-import {
-  setActiveRecentChat,
-  setRecentChats,
-} from "@/store/apps/chat/ChatReducer";
 import ChatSidebar from "@/app/components/apps/chats/ChatSidebar";
 import ChatContent from "@/app/components/apps/chats/ChatContent";
 

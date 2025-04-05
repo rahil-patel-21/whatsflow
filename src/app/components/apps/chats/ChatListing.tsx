@@ -21,6 +21,8 @@ import { formatDistanceToNowStrict } from "date-fns";
 import { IconChevronDown, IconSearch } from "@tabler/icons-react";
 import { setActiveRecentChat } from "@/store/apps/chat/ChatReducer";
 import Chip from "@mui/material/Chip";
+import apiClient from "@/api/apiClient";
+import { nChat } from "@/constants/network";
 
 const ChatListing = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,10 @@ const ChatListing = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  async function setActiveSource(source: string) {
+    await apiClient.post(nChat.setActiveSource, { source });
+  }
 
   return (
     <div>
@@ -100,9 +106,10 @@ const ChatListing = () => {
             chatState.recentChats.map((chat, index) => (
               <ListItemButton
                 key={chat.name + index}
-                onClick={() =>
-                  dispatch(setActiveRecentChat({ chat, isForcefully: true }))
-                }
+                onClick={() => {
+                  dispatch(setActiveRecentChat({ chat, isForcefully: true }));
+                  setActiveSource(chat.source)
+                }}
                 sx={{
                   mb: 0.5,
                   py: 1.5,
@@ -165,23 +172,25 @@ const ChatListing = () => {
                       addSuffix: false,
                     })}
                   </Typography>
-                  {chatState.activeRecentChat?.source != chat.source && chat.unReadCounts > 0 && (
-                    <Chip
-                      label={
-                        chat.unReadCounts < 10 ? chat.unReadCounts : "9+"
-                      }
-                      sx={{
-                        height: '20px',      // Reduce height
-                        fontSize: '0.7rem',   // Reduce font size
-                        padding: '0 4px',     // Reduce horizontal padding
-                        '& .MuiChip-label': { // Target the label specifically
-                          padding: '0 2px',   // Further reduce label padding
-                        },
-                      }}
-                      color="primary"
-                      size="small"
-                    />
-                  )}
+                  {chatState.activeRecentChat?.source != chat.source &&
+                    chat.unReadCounts > 0 && (
+                      <Chip
+                        label={
+                          chat.unReadCounts < 10 ? chat.unReadCounts : "9+"
+                        }
+                        sx={{
+                          height: "20px", // Reduce height
+                          fontSize: "0.7rem", // Reduce font size
+                          padding: "0 4px", // Reduce horizontal padding
+                          "& .MuiChip-label": {
+                            // Target the label specifically
+                            padding: "0 2px", // Further reduce label padding
+                          },
+                        }}
+                        color="primary"
+                        size="small"
+                      />
+                    )}
                 </Box>
               </ListItemButton>
             ))

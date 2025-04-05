@@ -12,6 +12,7 @@ import { useSelector } from "@/store/hooks";
 import { AppState } from "@/store/store";
 import { APP_NAME } from "@/constants/strings";
 import { handleAuth } from "../services/auth";
+import Customizer from "./layout/shared/customizer/Customizer";
 
 const MainWrapper = styled("div")(() => ({
   display: "flex",
@@ -131,7 +132,7 @@ export default function RootLayout({
           {/* End Page */}
           {/* ------------------------------------------- */}
         </Container>
-        {/* <Customizer /> */}
+        <Customizer />
       </PageWrapper>
     </MainWrapper>
   );

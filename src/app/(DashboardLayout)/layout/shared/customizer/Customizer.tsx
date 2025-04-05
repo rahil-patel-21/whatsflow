@@ -170,7 +170,7 @@ const Customizer: FC = () => {
             {/* ------------------------------------------- */}
             {/* ------------ Theme Color setting ------------- */}
             {/* ------------------------------------------- */}
-            <Typography variant="h6" gutterBottom>
+            {/* <Typography variant="h6" gutterBottom>
               Theme Colors
             </Typography>
             <Grid container spacing={2}>
@@ -201,12 +201,12 @@ const Customizer: FC = () => {
                   </StyledBox>
                 </Grid>
               ))}
-            </Grid>
+            </Grid> */}
             <Box pt={4} />
             {/* ------------------------------------------- */}
             {/* ------------ Layout Horizontal / Vertical ------------- */}
             {/* ------------------------------------------- */}
-            <Typography variant="h6" gutterBottom>
+            {/* <Typography variant="h6" gutterBottom>
               Layout Type
             </Typography>
             <Stack direction={"row"} gap={2} my={2}>
@@ -234,7 +234,7 @@ const Customizer: FC = () => {
                 />
                 Horizontal
               </StyledBox>
-            </Stack>
+            </Stack> */}
             <Box pt={4} />
 
             {/* ------------------------------------------- */}
@@ -276,7 +276,7 @@ const Customizer: FC = () => {
               </>
             )}
             <Box pt={4} />
-            <Typography variant="h6" gutterBottom>
+            {/* <Typography variant="h6" gutterBottom>
               Card With
             </Typography>
             <Stack direction={"row"} gap={2} my={2}>
@@ -300,7 +300,7 @@ const Customizer: FC = () => {
                 />
                 Shadow
               </StyledBox>
-            </Stack>
+            </Stack> */}
             <Box pt={4} />
 
           </Box>
