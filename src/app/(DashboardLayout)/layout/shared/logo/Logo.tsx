@@ -21,7 +21,7 @@ const Logo = () => {
       <LinkStyled href="/">
         {customizer.activeMode === "dark" ? (
           <Image
-            src="/images/logos/light-logo.svg"
+            src="/images/logos/Original_Logo.svg"
             alt="logo"
             height={customizer.TopbarHeight}
             width={174}

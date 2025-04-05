@@ -59,7 +59,7 @@ const DarkThemeColors = [
     name: 'GREEN_THEME',
     palette: {
       primary: {
-        main: '#0A7EA4',
+        main: '#019A4D',
         light: '#05313F',
         dark: '#06769A',
         contrastText: '#ffffff',

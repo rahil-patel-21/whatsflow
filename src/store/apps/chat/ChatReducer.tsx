@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface RecentChat {
   content: string;
-  caption:string;
+  caption: string;
   name: string;
   timestamp: number;
   profilePic?: string;
@@ -13,7 +13,7 @@ interface RecentChat {
 
 interface ChatMsg {
   content: string;
-  caption:string;
+  caption: string;
   fromMe: boolean;
   id: string;
   timestamp: number;
@@ -63,12 +63,36 @@ export const ReducerChat = createSlice({
     setActiveRecentChat: (state: StateType, action) => {
       if (action.payload.isForcefully) {
         state.activeRecentChat = action.payload?.chat;
-      } else if (!state.activeRecentChat) {
+      } else if (!state.activeRecentChat?.source) {
         state.activeRecentChat = action.payload?.chat;
+      } else {
+        return;
+      }
+
+      // Mark chat as read
+      if ((action.payload?.chat?.unReadCounts ?? 0) > 0) {
+        const targetIndex = state.recentChats.findIndex(
+          (el) => el.source == action.payload?.chat?.source
+        );
+        if (targetIndex != -1) {
+          state.recentChats[targetIndex].unReadCounts = 0;
+        }
       }
     },
     setActiveMainChats: (state: StateType, action) => {
       state.activeMainChats = action.payload;
+
+      console.log('state.activeRecentChat',state.activeRecentChat?.unReadCounts)
+
+      // Mark chat as read (For Active chat)
+      if ((state.activeRecentChat?.unReadCounts ?? 0) > 0) {
+        const targetIndex = state.recentChats.findIndex(
+          (el) => el.source == (state.activeRecentChat?.source ?? "")
+        );
+        if (targetIndex != -1) {
+          state.recentChats[targetIndex].unReadCounts = 0;
+        }
+      }
     },
   },
 });

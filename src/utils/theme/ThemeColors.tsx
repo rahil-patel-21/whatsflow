@@ -18,7 +18,7 @@ const ThemeColors = [
     name: 'GREEN_THEME',
     palette: {
       primary: {
-        main: '#0A7EA4',
+        main: '#763EBD',
         light: '#F4F9FB',
         dark: '#06769A',
       },
